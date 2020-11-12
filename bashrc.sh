@@ -1,0 +1,326 @@
+
+# this is intended to be sourced by the real .bashrc using `source ~/dotfiles/bashrc.sh` or something equivalent
+echo "sourced: ${BASH_SOURCE[0]}"
+
+## change the dotfiles path to whatever is correct and put it and the line below in ~/.bashrc
+# export DOTFILES_PATH="$HOME/dotfiles"
+# [ -s "$DOTFILES_PATH/bashrc.sh"  ] && \. "$DOTFILES_PATH/bashrc.sh"
+
+export EDITOR=code
+export VISUAL="$EDITOR"
+
+# Silence the following macos warning when starting bash:
+# # The default interactive shell is now zsh.
+# # To update your account to use zsh, please run `chsh -s /bin/zsh`.
+# # For more details, please visit https://support.apple.com/kb/HT208050.
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+parse_git_branch() {
+git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+# PS1 = Prompt String 1
+export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n$ "
+# elaboration:
+# \[\033[32m\]          # make it green
+# \t                    # timestamp of render (NOT of execution)
+# \[\033[35m\]          # make it purple
+# \u@\h                 # username@hostname
+# \[\033[33m\]          # make it yellow
+# \w                    # \W = current dir, \w = current path
+# \[\033[36m\]          # make it cyan
+# \$(parse_git_branch)  # get the git branch name, in parens
+# \[\033[0m\]           # make it white again
+# \n                    # optional newline
+# $                     # dollar sign :)
+# See numerous stack overflow posts and articles for more info
+
+
+
+
+# edit configs
+alias reload="source ~/.bash_profile"
+# alias reload="exec ${SHELL} -l"
+alias code-.bash="code ~/.bashrc"
+alias code-bash="code ${DOTFILES_PATH}/bashrc.sh"
+alias code-bashprof="code ~/.bash_profile"
+alias code-prof="code ~/.profile"
+alias code-git="code ~/.gitconfig"
+alias code-gitignore="code ~/.gitignore_global"
+alias code-tmux="code ~/.tmux.conf"
+alias code-npm="code ~/.nvm/.npmrc"
+alias code-nim="code ~/.config/nim/config.nims"
+
+# cd
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ~="cd ~"
+alias cd-="cd -"
+alias cddt="cd ~/Desktop"
+alias cddl="cd ~/Downloads"
+alias cddoc="cd ~/Documents"
+alias cdss="cd ~/Pictures/screenshots"
+function mkcd() {
+	mkdir -p $1 && cd $1;
+}
+
+# kill
+alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe
+alias kill9="kill -9" # kill with prejudice
+alias killk="kill --KILL" # same as kill9
+
+# ls
+export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: https://www.norbauer.com/rails-consulting/notes/ls-colors-and-terminal-app.html#:~:text=The%20values%20in%20LSCOLORS%20are,color%20and%20a%20background%20color.
+# to get colors in linux use '--color=auto'
+# to get colors in macos use '-G'
+alias ls="ls -vG"
+alias l.="ls -dG .*"
+alias la="ls -AG"
+alias ll="ls -alG"
+
+# ps
+alias psa="ps aux"
+alias psau="ps aux | grep $USER"
+
+# misc
+# alias c="for n in {1..50}; do echo; done; clear"
+alias c="reset"
+alias sound="afplay /System/Library/Sounds/Submarine.aiff"
+alias sudo="sudo " # allow aliases to be sudo'ed
+alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
+alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
+
+function fs() { # file size: get size of file or directory
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+# git
+alias g="git"
+# Note that git aliases can be put in the git config instead.
+# This would allow namespacing, eg `g [alias]` but also requires typing a whole extra character every time!
+# To get bash completion add the aliases to the bash completion file
+
+# git add
+alias ga="git add"
+alias gaa="git add ."
+alias gai="git add -i"
+alias ga-test="git add **test**"
+alias gau="git reset" # "git add undo" - unstages all staged files
+
+# git branch
+alias gb="git branch"
+alias gbv="git branch -vv" # wordier
+alias gbs="git branch --sort=-committerdate" # sort by commit date
+alias gba="git branch -a" # all branches
+alias gbD="git branch -D" # delete a branch
+alias gbf="git branch -f" # <branch to move> <target commit> # move a branch to a specific commit
+
+# git checkout
+alias gco="git checkout"
+alias gco-="git checkout -"
+alias gcob="git checkout -b"
+alias gco.="git checkout ."
+alias gcod="git checkout develop"
+alias gcom="git checkout master"
+alias gcon="git checkout main"
+# these next are gratuitous
+alias gcodp="git checkout develop && git pull --rebase"
+alias gcomp="git checkout master && git pull --rebase"
+alias gconp="git checkout main && git pull --rebase"
+alias gcodp-="git checkout develop && git pull --rebase && git checkout -"
+alias gcomp-="git checkout master && git pull --rebase && git checkout -"
+alias gconp-="git checkout main && git pull --rebase && git checkout -"
+alias gcodpr="git checkout develop && git pull --rebase && git checkout - && git rebase -i develop"
+alias gcompr="git checkout master && git pull --rebase && git checkout - && git rebase -i master"
+alias gconpr="git checkout main && git pull --rebase && git checkout - && git rebase -i main"
+
+# git cherry-pick
+alias gcp="git cherry-pick"
+alias gcpa="git cherry-pick --abort"
+alias gcpc="git cherry-pick --continue"
+
+# git commit
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gacm="git add . && git commit -m"
+alias gcan="git commit --amend --no-edit"
+alias gacan="git add . && git commit --amend --no-edit"
+alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit and unstage, but the files remain intact
+alias gcdate="git commit --amend --reset-author --no-edit" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
+# see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
+
+# git config
+alias gconf="git config --list --show-origin"
+alias gconfe="git config --global -e"
+
+# git diff
+alias gd="git diff --stat"
+
+# git fetch
+alias gf="git fetch"
+
+# git log
+alias gl="git log"
+alias glo="git log --oneline -n 10"
+alias gloo="git log --oneline -n 20"
+alias glooo="git log --oneline"
+alias gll="git log -3 HEAD"
+alias glll="git log -6 HEAD"
+glod(){
+    if [ $# -eq 0 ]; then
+        git show --name-status -r "HEAD"
+    elif [ $1 -ge 0 ]; then
+        git show --name-status -r "HEAD~$1"
+        # for i in `seq 0 $1`; do
+        #     git show --name-status -r "HEAD~$i"
+        # done
+    else
+        echo "Please enter the commit number to show (most recent commit is 0)."
+    fi
+}
+alias glodd="glod 1"
+# alias glfc="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S"
+# alias glfm="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep"
+
+# git pull
+alias gp="git pull"
+alias gpr="git pull --rebase"
+
+# git push
+alias gpu="git push"
+alias gpuu="git push --set-upstream origin HEAD"
+alias gpuf="git push --force-with-lease"
+alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
+
+# git rebase
+alias gri="git rebase -i"
+alias grid="git rebase -i develop"
+alias grim="git rebase -i master"
+alias grin="git rebase -i main"
+grih(){
+  if [ $# -eq 0 ]
+  then
+    git rebase -i "HEAD~2"
+  elif [ $1 -gt 1 ]
+  then
+    git rebase -i "HEAD~$1"
+  else
+    echo "Please enter a number of commits to rebase greater than 1 (2 is default if no args)."
+  fi
+}
+alias grihh="grih 3"
+alias gria="git rebase --abort"
+alias gric="git rebase --continue"
+
+# git stash
+alias gsh="git stash"
+alias gshm="git stash push -m"
+alias gshl="git stash list --oneline"
+alias gshp="git stash pop"
+alias gsha="git stash apply"
+alias gshaf="git checkout stash -- ."
+gshas(){
+    git stash apply "stash@{$1}"
+}
+alias gshaf="git checkout stash -- ."
+alias gshd="git stash drop" # eg: gshd stash@{2}
+gshds(){
+    git stash drop "stash@{$1}"
+}
+# use this if you accidentally drop a stash (reminder):
+# alias find-stash="git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )"
+
+# git status
+alias gs="git status"
+alias gss="git status -sbu"
+
+# git tag
+alias gt="git tag"
+alias gtl="git tag --list"
+alias gtd="git tag -d" # delete a tag
+alias gtf="git tag -f" # make or move tag
+alias gtp="git tag -f prebase" # create a 'prebase' tag prior to rebasing/merging
+alias gtpu="git tag -d prebase" # remove the prebase tag
+
+
+## youtube-dl https://github.com/ytdl-org/youtube-dl
+alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3" # follow this with the url
+# here is an example with output template:
+# > ytmp3 -o 'SecretMelodyX3.$(ext)s' https://www.youtube.com/watch?v=I-8px_1fIqg
+# Note the single quotes around the output template and that the extension is ".$(ext)s" those are all important!
+# If you do not do it that way, the audio may fail to extract.
+
+
+# tmux (https://formulae.brew.sh/formula/tmux#default)
+alias tmuc="tmux -CC"
+alias tmuca="tmux -CC attach"
+alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
+
+
+# node
+export NVM_DIR="$HOME/.nvm"
+nvmi() {
+    # loading nvm in every terminal introduced noticeable delay
+    # I was impatient, so now there's a function that loads nvm, called `nvmi`
+    # multiple calls will noop
+    if [ -n "$(which node)" ]; then
+        return
+    fi
+    echo "initializing nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+}
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm # This was slow! Moved to nvmi fxn
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
+alias rmnm="rm -rf node_modules"
+alias npm-dev="npm start"
+alias npm-test="npm test"
+alias npm-test-app="npm test App.test.tsx"
+alias npm-ta="npm test App.test.tsx"
+alias npm-cov="npm run coverage"
+alias npm-tc="npm run test-coverage"
+alias npm-up="npm install -g npm" # if not using nvm
+alias sudo-npm-up="sudo npm install -g npm"
+
+# react
+alias testOnce="npx react-scripts test --watchAll=false --all && echo test succeeded" # this is present as a reminder
+
+## brew
+alias brew-up="brew update && brew upgrade"
+
+brew-install-everything() { # things to install
+  echo "brew installing everything"
+  # brew install bash
+  # brew install bash-completion2
+  # brew install tree
+}
+
+## nim
+alias nim-up="choosenim update self && choosenim update stable && choosenim update devel"
+
+# upgrade everything
+alias all-up="nim-up && brew-up"
+
+# reminders
+alias make-executable="chmod +x" #filenamehere#
+alias find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (note colon) finds the process using port 9080, so you can kill it # https://en.wikipedia.org/wiki/Lsof#:~:text=lsof%20is%20a%20command%20meaning,the%20processes%20that%20opened%20them.
+
+# macos reminders
+alias show-dot-files-in-finder="defaults write com.apple.finder AppleShowAllFiles YES" # the quick keybinding is Cmd-Shift-.
+alias show-path-bar-in-finder="defaults write com.apple.finder ShowPathbar -bool true"
+alias disable-file-extension-change-warning="defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"

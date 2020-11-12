@@ -86,6 +86,9 @@ alias ls="ls -vG"
 alias l.="ls -dG .*"
 alias la="ls -AG"
 alias ll="ls -alG"
+lsf() {
+  ls -G **/*$1*
+}
 
 # ps
 alias psa="ps aux"
@@ -307,7 +310,7 @@ alias sudo-npm-up="sudo npm install -g npm"
 alias testOnce="npx react-scripts test --watchAll=false --all && echo test succeeded" # this is present as a reminder
 
 ## brew
-alias brew-up="brew update && brew upgrade"
+alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
 
 brew-install-everything() { # things to install
   echo "brew installing everything"
@@ -319,7 +322,7 @@ brew-install-everything() { # things to install
 ## nim
 alias nim-up="choosenim update self && choosenim update stable && choosenim update devel"
 
-# upgrade everything
+# upgrade everything. SLOW!
 alias all-up="nim-up && brew-up"
 
 # reminders

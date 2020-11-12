@@ -34,7 +34,11 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 # $                     # dollar sign :)
 # See numerous stack overflow posts and articles for more info
 
-
+symlink-configs() {
+  echo "symlinking configs"
+  ln -s "$DOTFILES_PATH/.gitignore_global" ~/.gitignore_global
+  ln -s "$DOTFILES_PATH/.tmux.conf" ~/.tmux.conf
+}
 
 
 # edit configs
@@ -67,6 +71,7 @@ alias cdss="cd ~/Pictures/screenshots"
 function mkcd() {
 	mkdir -p $1 && cd $1;
 }
+alias mkd="mkdir -pv"
 
 # kill
 alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe
@@ -115,8 +120,9 @@ alias g="git"
 
 # git add
 alias ga="git add"
-alias gaa="git add ."
+alias gaa="git add --all"
 alias gai="git add -i"
+alias gap="git add --patch"
 alias ga-test="git add **test**"
 alias gau="git reset" # "git add undo" - unstages all staged files
 
@@ -244,8 +250,8 @@ gshds(){
 # alias find-stash="git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )"
 
 # git status
-alias gs="git status"
-alias gss="git status -sbu"
+alias gss="git status"
+alias gs="git status -sbu"
 
 # git tag
 alias gt="git tag"

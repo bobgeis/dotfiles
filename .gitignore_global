@@ -1,0 +1,5 @@
+.DS_Store
+*.pyc
+secret/
+.git/
+/node_modules/

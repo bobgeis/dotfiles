@@ -243,6 +243,9 @@ alias grihh="grih 3"
 alias gria="git rebase --abort"
 alias gric="git rebase --continue"
 
+# git remote
+alias grepro="git remote prune origin" # remove remote branches that have been closed/merged
+
 # git stash
 alias gsh="git stash"
 alias gshm="git stash push -m"

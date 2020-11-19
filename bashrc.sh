@@ -68,6 +68,7 @@ alias cddt="cd ~/Desktop"
 alias cddl="cd ~/Downloads"
 alias cddoc="cd ~/Documents"
 alias cdss="cd ~/Pictures/screenshots"
+alias cddot="cd $DOTFILES_PATH"
 function mkcd() {
 	mkdir -p $1 && cd $1;
 }
@@ -297,6 +298,7 @@ nvmi() {
 
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"
+alias rmnm-npmi="rmnm && npm i"
 alias npm-dev="npm start"
 alias npm-test="npm test"
 alias npm-test-app="npm test App.test.tsx"

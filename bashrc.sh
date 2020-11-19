@@ -203,6 +203,14 @@ glod(){
 alias glodd="glod 1"
 # alias glfc="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S"
 # alias glfm="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep"
+# the below are from https://tekin.co.uk/2020/11/patterns-for-searching-git-revision-histories
+# note that "GNU ls" it `gls`; we are hiding it with this alias
+alias gls="git log -S" # pickaxe: gls "method-name", second arg can be a filename to limit search to that file
+alias glsp="git log -p -S" # see patches
+alias glsr="git log --reverse -S" # see first commit of a snippet
+alias glspr="git log -p --reverse -S" # see first commit of a snippet
+alias glg="git log --grep" # commit search: glg "ui"
+alias glG="git log -G" # like git log -S, but takes a REGEX!
 
 # git pull
 alias gp="git pull"

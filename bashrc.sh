@@ -43,9 +43,7 @@ symlink-configs() {
 
 # edit configs
 alias reload="source ~/.bash_profile"
-# alias reload="exec ${SHELL} -l"
 alias code-.bash="code ~/.bashrc"
-alias code-bash="code ${DOTFILES_PATH}/bashrc.sh"
 alias code-bashprof="code ~/.bash_profile"
 alias code-prof="code ~/.profile"
 alias code-git="code ~/.gitconfig"
@@ -53,6 +51,8 @@ alias code-gitignore="code ~/.gitignore_global"
 alias code-tmux="code ~/.tmux.conf"
 alias code-npm="code ~/.nvm/.npmrc"
 alias code-nim="code ~/.config/nim/config.nims"
+alias code-bash="code ${DOTFILES_PATH}/bashrc.sh"
+alias code-dot="code ${DOTFILES_PATH}"
 
 # cd
 alias ..="cd .."

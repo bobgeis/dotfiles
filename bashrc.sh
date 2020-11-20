@@ -118,6 +118,7 @@ function fs() { # file size: get size of file or directory
 
 # git
 alias g="git"
+alias gitalias="alias | grep git"
 # Note that git aliases can be put in the git config instead.
 # This would allow namespacing, eg `g [alias]` but also requires typing a whole extra character every time!
 # To get bash completion add the aliases to the bash completion file

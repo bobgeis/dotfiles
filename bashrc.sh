@@ -135,8 +135,9 @@ alias gau="git reset" # "git add undo" - unstages all staged files
 alias gb="git branch"
 alias gbv="git branch -vv" # wordier
 alias gbs="git branch --sort=-committerdate" # sort by commit date
-alias gba="git branch -a" # all branches
+alias gba="git branch -a" # all branches, including remote
 alias gbD="git branch -D" # delete a branch
+alias gbDr="git push remote -d" # delete a REMOTE branch, be careful!
 alias gbf="git branch -f" # <branch to move> <target commit> # move a branch to a specific commit
 
 # git checkout

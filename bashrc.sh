@@ -34,11 +34,11 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 # $                     # dollar sign :)
 # See numerous stack overflow posts and articles for more info
 
-symlink-configs() {
-  echo "symlinking configs"
-  ln -s "$DOTFILES_PATH/.gitignore_global" ~/.gitignore_global
-  ln -s "$DOTFILES_PATH/.tmux.conf" ~/.tmux.conf
-}
+# symlink-configs() {
+#   echo "symlinking configs"
+#   ln -s "$DOTFILES_PATH/.gitignore_global" ~/.gitignore_global
+#   ln -s "$DOTFILES_PATH/.tmux.conf" ~/.tmux.conf
+# }
 
 
 # edit configs
@@ -311,7 +311,7 @@ nvmi() {
 
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"
-alias rmnm-npmi="rmnm && npm i"
+alias rmnmi="rm -rf node_modules && npm i"
 alias npm-dev="npm start"
 alias npm-test="npm test"
 alias npm-test-app="npm test App.test.tsx"

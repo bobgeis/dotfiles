@@ -44,15 +44,16 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 # edit configs
 alias reload="source ~/.bash_profile"
 alias code-.bash="code ~/.bashrc"
+alias code-bash="code ${DOTFILES_PATH}/bashrc.sh"
 alias code-bashprof="code ~/.bash_profile"
-alias code-prof="code ~/.profile"
+alias code-dot="code ${DOTFILES_PATH}"
 alias code-git="code ~/.gitconfig"
 alias code-gitignore="code ~/.gitignore_global"
-alias code-tmux="code ~/.tmux.conf"
-alias code-npm="code ~/.nvm/.npmrc"
 alias code-nim="code ~/.config/nim/config.nims"
-alias code-bash="code ${DOTFILES_PATH}/bashrc.sh"
-alias code-dot="code ${DOTFILES_PATH}"
+alias code-npm="code ~/.nvm/.npmrc"
+alias code-prof="code ~/.profile"
+alias code-ssh="code ~/.ssh/config"
+alias code-tmux="code ~/.tmux.conf"
 
 # cd
 alias ..="cd .."
@@ -175,12 +176,16 @@ alias gcdate="git commit --amend --reset-author --no-edit" # reset to the last c
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
 
 # git config
-alias gconf="git config --list --show-origin"
-alias gconfe="git config --global -e"
+alias gconfl="git config --list --show-origin"
+alias gconfe="git config -e"
+alias gconfge="git config --global -e" # similar effect as code-git
+alias set-user-name="git config user.name " # follow with "Your Name"
+alias set-user-email="git config user.email " # follow with "you@email.com"
 
 # git diff
-alias gd="git diff --stat"
-alias gds="git diff --staged"
+alias gd="git diff"
+alias gds="git diff --stat"
+alias gda="git diff --staged"
 
 # git fetch
 alias gf="git fetch"
@@ -248,6 +253,8 @@ alias gric="git rebase --continue"
 
 # git remote
 alias grepro="git remote prune origin" # remove remote branches that have been closed/merged
+alias git-add-origin="git remote add origin" # follow with git @ HOST :
+alias git-remove-origin="git remote remove origin" # when you set the wrong origin
 
 # git stash
 alias gsh="git stash"
@@ -283,6 +290,17 @@ alias gtpu="git tag -d prebase" # remove the prebase tag
 alias gwc="git whatchanged"
 alias gwco="git whatchanged --oneline"
 
+# ssh
+alias make-ssh-key="ssh-keygen -t rsa -C " #email address to follow
+# when prompted enter the name of the file (BEWARE OVERWRITES!)
+# when prompted enter the passphrase, just press enter twice for none (recommended)
+alias attach-new-key="ssh-add " # path to private key to follow
+# paste the contents of the .pub file into wherever you need to communicate securely (eg github)
+
+# tmux (https://formulae.brew.sh/formula/tmux#default)
+alias tmuc="tmux -CC"
+alias tmuca="tmux -CC attach"
+alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
 
 ## youtube-dl https://github.com/ytdl-org/youtube-dl
 alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3" # follow this with the url
@@ -292,10 +310,6 @@ alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3"
 # If you do not do it that way, the audio may fail to extract.
 
 
-# tmux (https://formulae.brew.sh/formula/tmux#default)
-alias tmuc="tmux -CC"
-alias tmuca="tmux -CC attach"
-alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
 
 
 # node

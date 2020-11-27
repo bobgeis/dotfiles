@@ -142,9 +142,9 @@ alias gbf="git branch -f" # <branch to move> <target commit> # move a branch to 
 
 # git checkout
 alias gco="git checkout"
-alias gco-="git checkout -"
-alias gcob="git checkout -b"
-alias gco.="git checkout ."
+alias gco-="git checkout -" # last branch
+alias gcob="git checkout -b" # new branch
+alias gco.="git checkout ." # revert modified files
 alias gcod="git checkout develop"
 alias gcom="git checkout master"
 alias gcon="git checkout main"
@@ -170,7 +170,7 @@ alias gcm="git commit -m"
 alias gacm="git add . && git commit -m"
 alias gcan="git commit --amend --no-edit"
 alias gacan="git add . && git commit --amend --no-edit"
-alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit and unstage, but the files remain intact
+alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
 alias gcdate="git commit --amend --reset-author --no-edit" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
 
@@ -180,6 +180,7 @@ alias gconfe="git config --global -e"
 
 # git diff
 alias gd="git diff --stat"
+alias gds="git diff --staged"
 
 # git fetch
 alias gf="git fetch"
@@ -277,6 +278,10 @@ alias gtd="git tag -d" # delete a tag
 alias gtf="git tag -f" # make or move tag
 alias gtp="git tag -f prebase" # create a 'prebase' tag prior to rebasing/merging
 alias gtpu="git tag -d prebase" # remove the prebase tag
+
+# git whatchanged
+alias gwc="git whatchanged"
+alias gwco="git whatchanged --oneline"
 
 
 ## youtube-dl https://github.com/ytdl-org/youtube-dl

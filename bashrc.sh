@@ -116,6 +116,8 @@ function fs() { # file size: get size of file or directory
 		du $arg .[^.]* ./*;
 	fi;
 }
+# List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
+alias ducks='du -cks * | sort -rn | head -11'
 
 # git
 alias g="git"

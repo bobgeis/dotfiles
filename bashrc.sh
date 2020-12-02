@@ -199,6 +199,8 @@ alias gloo="git log --oneline -n 20"
 alias glooo="git log --oneline"
 alias gll="git log -3 HEAD"
 alias glll="git log -6 HEAD"
+alias glos="git log --stat --oneline -n 5"
+alias gloss="git log --stat --oneline"
 glod(){
     if [ $# -eq 0 ]; then
         git show --name-status -r "HEAD"
@@ -235,10 +237,13 @@ alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 
 # git rebase
 alias gri="git rebase -i"
+grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
+  git rebase "$1^"
+}
 alias grid="git rebase -i develop"
 alias grim="git rebase -i master"
 alias grin="git rebase -i main"
-grih(){
+grih(){ # "git rebase interactive HEAD" - squash commits from head
   if [ $# -eq 0 ]
   then
     git rebase -i "HEAD~2"
@@ -252,11 +257,17 @@ grih(){
 alias grihh="grih 3"
 alias gria="git rebase --abort"
 alias gric="git rebase --continue"
+alias git-rebase-to-squash-into-first-commit="git rebase -i --root master"
 
 # git remote
 alias grepro="git remote prune origin" # remove remote branches that have been closed/merged
 alias git-add-origin="git remote add origin" # follow with git @ HOST :
 alias git-remove-origin="git remote remove origin" # when you set the wrong origin
+
+# git show
+alias gsw="git show"
+alias gsws="git show --stat" # probably superior to `glod`
+alias gswo="git show --stat --oneline"
 
 # git stash
 alias gsh="git stash"

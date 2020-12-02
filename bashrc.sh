@@ -170,7 +170,9 @@ alias gcpc="git cherry-pick --continue"
 # git commit
 alias gc="git commit"
 alias gcm="git commit -m"
+alias gcmf="git commit --fixup -m"
 alias gacm="git add . && git commit -m"
+alias gacmf="git add . && git commit --fixup -m"
 alias gcan="git commit --amend --no-edit"
 alias gacan="git add . && git commit --amend --no-edit"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
@@ -236,6 +238,7 @@ alias gpuf="git push --force-with-lease"
 alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 
 # git rebase
+alias gras="git rebase -i --autosquash"
 alias gri="git rebase -i"
 grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
   git rebase "$1^"

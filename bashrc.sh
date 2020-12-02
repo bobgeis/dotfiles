@@ -267,6 +267,9 @@ alias grepro="git remote prune origin" # remove remote branches that have been c
 alias git-add-origin="git remote add origin" # follow with git @ HOST :
 alias git-remove-origin="git remote remove origin" # when you set the wrong origin
 
+# git rev-parse
+alias git-hash="git rev-parse --short HEAD"
+
 # git show
 alias gsw="git show"
 alias gsws="git show --stat" # probably superior to `glod`

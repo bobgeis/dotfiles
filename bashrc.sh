@@ -152,6 +152,26 @@ alias gco.="git checkout ." # revert modified files
 alias gcod="git checkout develop"
 alias gcom="git checkout master"
 alias gcon="git checkout main"
+function git-checkout-branch-by-search-string() {
+  local maybe_branch_name
+  maybe_branch_name=$(git branch --sort=-committerdate | grep $1 | head -n 1)
+  if [ -n "$maybe_branch_name" ]; then
+    git checkout "${maybe_branch_name:2}"
+  else
+    echo "Could not find branch matching $1"
+  fi
+}
+alias gcof="git-checkout-branch-by-search-string"
+function git-checkout-remote-branch-by-search-string() {
+  local maybe_branch_name
+  maybe_branch_name=$(git branch --sort=-committerdate -r | grep $1 | head -n 1)
+  if [ -n "$maybe_branch_name" ]; then
+    git checkout "${maybe_branch_name:2}"
+  else
+    echo "Could not find remote branch matching $1"
+  fi
+}
+alias gcofr="git-checkout-remote-branch-by-search-string"
 # these next are gratuitous
 alias gcodp="git checkout develop && git pull --rebase"
 alias gcomp="git checkout master && git pull --rebase"

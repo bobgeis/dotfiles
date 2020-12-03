@@ -15,7 +15,7 @@ export VISUAL="$EDITOR"
 # # For more details, please visit https://support.apple.com/kb/HT208050.
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
-parse_git_branch() {
+function parse_git_branch() {
 git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 # PS1 = Prompt String 1
@@ -88,7 +88,7 @@ alias ls="ls -vG"
 alias l.="ls -dG .*"
 alias la="ls -AG"
 alias ll="ls -alG"
-lsf() {
+function lsf() {
   ls -G **/*$1*
 }
 
@@ -169,10 +169,24 @@ alias gcpc="git cherry-pick --continue"
 
 # git commit
 alias gc="git commit"
-alias gcm="git commit -m"
-alias gcmf="git commit --fixup -m"
-alias gacm="git add . && git commit -m"
-alias gacmf="git add . && git commit --fixup -m"
+function git-commit-with-message() {
+  git commit -m "$*"
+}
+function git-add-all-then-git-commit-with-message() {
+  git add .
+  git commit -m "$*"
+}
+alias gcm="git-commit-with-message"
+alias gacm="git-add-all-then-git-commit-with-message"
+function git-commit-fixup() {
+  git commit --fixup ":/$*"
+}
+function git-add-all-then-git-commit-fixup() {
+  git add .
+  git commit --fixup ":/$*"
+}
+alias gcf="git-commit-fixup"
+alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
 alias gacan="git add . && git commit --amend --no-edit"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
@@ -240,13 +254,13 @@ alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 # git rebase
 alias gras="git rebase -i --autosquash"
 alias gri="git rebase -i"
-grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
+function grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
   git rebase "$1^"
 }
 alias grid="git rebase -i develop"
 alias grim="git rebase -i master"
 alias grin="git rebase -i main"
-grih(){ # "git rebase interactive HEAD" - squash commits from head
+function grih(){ # "git rebase interactive HEAD" - squash commits from head
   if [ $# -eq 0 ]
   then
     git rebase -i "HEAD~2"
@@ -282,12 +296,12 @@ alias gshl="git stash list --oneline"
 alias gshp="git stash pop"
 alias gsha="git stash apply"
 alias gshaf="git checkout stash -- ."
-gshas(){
+function gshas(){
     git stash apply "stash@{$1}"
 }
 alias gshaf="git checkout stash -- ."
 alias gshd="git stash drop" # eg: gshd stash@{2}
-gshds(){
+function gshds(){
     git stash drop "stash@{$1}"
 }
 # use this if you accidentally drop a stash (reminder):
@@ -365,7 +379,7 @@ alias testOnce="npx react-scripts test --watchAll=false --all && echo test succe
 ## brew
 alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
 
-brew-install-everything() { # things to install
+function brew-install-everything() { # things to install
   echo "brew installing everything"
   # brew install bash
   # brew install bash-completion2

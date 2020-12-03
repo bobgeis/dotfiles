@@ -1,0 +1,17 @@
+
+# Add this to the .gitconfig file in your ~ dir:
+# [include]
+#     path = ~/dotfiles/.gitconfig
+
+[core]
+    editor = code --wait
+[color]
+    ui = true
+[pull]
+    rebase = true
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[rebase]
+    autosquash = true

@@ -70,10 +70,11 @@ alias cddl="cd ~/Downloads"
 alias cddoc="cd ~/Documents"
 alias cdss="cd ~/Pictures/screenshots"
 alias cddot="cd $DOTFILES_PATH"
-function mkcd() {
-	mkdir -p $1 && cd $1;
-}
+alias mkdir="mkdir -pv"
 alias mkd="mkdir -pv"
+function mkcd() {
+	mkdir -pv $1 && cd $1;
+}
 
 # kill
 alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe

@@ -2,16 +2,22 @@
 # Add this to the .gitconfig file in your ~ dir:
 # [include]
 #     path = ~/dotfiles/.gitconfig
+# [core]
+#   excludesfile = ${DOTFILES_PATH}/.gitignore_global
+# [user]
+#   name = <Your Name>
+#   email = <Your Email>
+
 
 [core]
-    editor = code --wait
+  editor = code --wait
 [color]
-    ui = true
+  ui = true
 [pull]
-    rebase = true
+  rebase = true
 [diff]
-    tool = vscode
+  tool = vscode
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
 [rebase]
-    autosquash = true
+  autosquash = true

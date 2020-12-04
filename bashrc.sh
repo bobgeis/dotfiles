@@ -249,17 +249,18 @@ function git-log-oneline-chunked() {
     chunk=$(( $chunk+1 ))
   done
 }
-alias glon="git-log-oneline-chunked"
-alias glonn="git-log-oneline-chunked 4"
+alias glon="git log --oneline -n 10 | nl -w2 -s' '"
+alias glonn="git log --oneline -n 20 | nl -w2 -s' '"
+alias glonnn="git log --oneline | nl -w2 -s' '"
 alias gll="git log -3 HEAD"
 alias glll="git log -6 HEAD"
 alias glos="git log --stat --oneline -n 5"
 alias gloss="git log --stat --oneline"
-glod(){
+function glod(){
     if [ $# -eq 0 ]; then
-        git show --name-status -r "HEAD"
+        git show --stat -r "HEAD"
     elif [ $1 -ge 0 ]; then
-        git show --name-status -r "HEAD~$1"
+        git show --stat -r "HEAD~$1"
         # for i in `seq 0 $1`; do
         #     git show --name-status -r "HEAD~$i"
         # done

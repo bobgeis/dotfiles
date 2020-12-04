@@ -235,6 +235,25 @@ alias gl="git log"
 alias glo="git log --oneline -n 10"
 alias gloo="git log --oneline -n 20"
 alias glooo="git log --oneline"
+function git-log-oneline-numbered() {
+  local lines_total
+  local lines_left
+  local chunk_size
+  chunk_size=4
+  lines_total="$1"
+  if [ -z "$lines_total" ]; then
+    lines_total=$(( $chunk_size * 2 ))
+  fi
+  lines_left="$lines_total"
+  while [ "$lines_left" -gt "$chunk_size" ]
+  do
+    git log --oneline -n "$chunk_size" --skip=$(( $lines_total-$lines_left ))
+    lines_left=$(( $lines_left-$chunk_size ))
+    echo ""
+  done
+  git log --oneline -n "$lines_left" --skip=$(( $lines_total-$lines_left ))
+}
+alias glon="git-log-oneline-numbered"
 alias gll="git log -3 HEAD"
 alias glll="git log -6 HEAD"
 alias glos="git log --stat --oneline -n 5"

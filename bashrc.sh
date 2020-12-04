@@ -150,6 +150,18 @@ alias gco="git checkout"
 alias gco-="git checkout -" # last branch
 alias gcob="git checkout -b" # new branch
 alias gco.="git checkout ." # revert modified files
+function git-checkout-previous-commit() {
+  local prev
+  prev=$(git rev-parse HEAD~1)
+  git checkout "$prev"
+}
+alias gcop="git-checkout-previous-commit"
+function git-checkout-child-commit() {
+  local forward
+  forward=$(git-children-of HEAD | tail -1)
+  git checkout "$forward"
+}
+alias gcoc="git-checkout-child-commit"
 alias gcod="git checkout develop"
 alias gcom="git checkout master"
 alias gcon="git checkout main"
@@ -252,6 +264,23 @@ function git-log-oneline-chunked() {
 alias glon="git log --oneline -n 10 | nl -w2 -s' '"
 alias glonn="git log --oneline -n 20 | nl -w2 -s' '"
 alias glonnn="git log --oneline | nl -w2 -s' '"
+function git-log-oneline-children() {
+  local child
+  local count
+  local check
+  count="${1:-10}"
+  child="HEAD"
+  while [ "$count" -gt 0 ]
+  do
+    if [ ${#child} -gt 0 ]
+    then
+      git log --oneline -n 1 "$child"
+      child=$(git-children-of $child | tail -1)
+    fi
+    count=$(( $count-1 ))
+  done
+}
+alias gloc="git-log-oneline-children"
 alias gll="git log -3 HEAD"
 alias glll="git log -6 HEAD"
 alias glos="git log --stat --oneline -n 5"
@@ -322,6 +351,16 @@ alias git-remove-origin="git remote remove origin" # when you set the wrong orig
 
 # git rev-parse
 alias git-hash="git rev-parse --short HEAD"
+function git-children-of() {
+  for arg in "$@"; do
+    for commit in $(git rev-parse $arg^0); do
+      for child in $(git log --format='%H %P' --all | grep -F " $commit" | cut -f1 -d' '); do
+         echo $child
+      done
+    done
+  done
+}
+
 
 # git show
 alias gsw="git show"

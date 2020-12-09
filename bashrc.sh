@@ -355,7 +355,7 @@ function git-children-of() {
   for arg in "$@"; do
     for commit in $(git rev-parse $arg^0); do
       for child in $(git log --format='%H %P' --all | grep -F " $commit" | cut -f1 -d' '); do
-         echo $child
+        echo $child
       done
     done
   done
@@ -374,14 +374,16 @@ alias gshl="git stash list --oneline"
 alias gshp="git stash pop"
 alias gsha="git stash apply"
 alias gshaf="git checkout stash -- ."
-function gshas(){
+function git-stash-apply-stash-number(){
     git stash apply "stash@{$1}"
 }
+alias gshas="git-stash-apply-stash-number"
 alias gshaf="git checkout stash -- ."
 alias gshd="git stash drop" # eg: gshd stash@{2}
-function gshds(){
+function git-stash-drop-stash-number(){
     git stash drop "stash@{$1}"
 }
+alias gshds="git-stash-drop-stash-number"
 # use this if you accidentally drop a stash (reminder):
 # alias find-stash="git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )"
 

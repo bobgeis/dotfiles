@@ -138,6 +138,7 @@ alias gau="git reset" # "git add undo" - unstages all staged files
 
 # git branch
 alias gb="git branch"
+alias gbr="git branch -r"
 alias gbv="git branch -vv" # wordier
 alias gbs="git branch --sort=-committerdate" # sort by commit date
 alias gba="git branch -a" # all branches, including remote

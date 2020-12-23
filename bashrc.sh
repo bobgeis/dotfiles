@@ -456,6 +456,20 @@ alias npm-tc="npm run test-coverage"
 alias npm-up="npm install -g npm" # if not using nvm
 alias sudo-npm-up="sudo npm install -g npm"
 
+function npm-run-lint-validate-license-coverage-build() {
+  echo "lint"
+  npm run lint
+  echo "validate"
+  npm run validate
+  echo "license"
+  npm run licensecheck
+  echo "coverage"
+  npm run coverage
+  echo "build"
+  npm run build
+}
+alias npm-prepush="npm-run-lint-validate-license-coverage-build"
+
 # react
 alias testOnce="npx react-scripts test --watchAll=false --all && echo test succeeded" # this is present as a reminder
 

@@ -463,10 +463,10 @@ function npm-run-lint-validate-license-coverage-build() {
   npm run validate
   echo "license"
   npm run licensecheck
-  echo "coverage"
-  npm run coverage
   echo "build"
   npm run build
+  echo "coverage"
+  npm run coverage
 }
 alias npm-prepush="npm-run-lint-validate-license-coverage-build"
 

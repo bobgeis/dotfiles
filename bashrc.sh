@@ -126,6 +126,7 @@ alias ducks='du -cks * | sort -rn | head -11'
 # git
 alias g="git"
 alias gitalias="alias | grep git"
+alias git-alias="alias | grep git"
 # Note that git aliases can be put in the git config instead.
 # This would allow namespacing, eg `g [alias]` but also requires typing a whole extra character every time!
 # To get bash completion add the aliases to the bash completion file
@@ -229,6 +230,10 @@ alias gacan="git add . && git commit --amend --no-edit"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
 alias gcdate="git commit --amend --reset-author --no-edit" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
+
+# git clean
+alias gclen="git clean -dn"
+alias gclenf="git clean -df"
 
 # git config
 alias gconfl="git config --list --show-origin"

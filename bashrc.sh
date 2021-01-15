@@ -219,11 +219,11 @@ alias gacm="git-add-all-then-git-commit-with-message"
 function git-commit-fixup() {
   git commit --fixup ":/$*"
 }
+alias gcf="git-commit-fixup"
 function git-add-all-then-git-commit-fixup() {
   git add .
   git commit --fixup ":/$*"
 }
-alias gcf="git-commit-fixup"
 alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
 alias gacan="git add . && git commit --amend --no-edit"
@@ -336,7 +336,7 @@ function grip(){ # git rebase interactive previous - rebase on the commit before
 alias grid="git rebase -i develop"
 alias grim="git rebase -i master"
 alias grin="git rebase -i main"
-function grih(){ # "git rebase interactive HEAD" - squash commits from head
+function grih(){ # "git rebase interactive HEAD" - squash X commits from head
   if [ $# -eq 0 ]
   then
     git rebase -i "HEAD~2"

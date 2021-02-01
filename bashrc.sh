@@ -103,7 +103,7 @@ alias psau="ps aux | grep $USER"
 alias c="reset"
 alias sound="afplay /System/Library/Sounds/Submarine.aiff"
 alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
-alias bb="blowsound && blowsound && blowsound"
+alias bb="blowsound && blowsound"
 alias sudo="sudo " # allow aliases to be sudo'ed
 alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
 alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
@@ -452,6 +452,7 @@ nvmi() {
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
+alias rmnmib="rm -rf node_modules && npm i && bb"
 alias npm-dev="npm start"
 alias npm-test="npm test"
 alias npm-test-app="npm test App.test.tsx"

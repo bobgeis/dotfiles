@@ -1,0 +1,20 @@
+{
+// add these to your vscode settings.json
+// considering making an actual theme instead :P
+// theme overrides https://code.visualstudio.com/docs/getstarted/themes
+  "editor.tokenColorCustomizations": {
+    "comments": "#67EE79"
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#0f0f0f",
+    "editor.background": "#0f0f0f",
+    "editor.foreground": "#fefefe",
+    "sideBar.background": "#0f0f0f",
+    "sideBar.foreground": "#efefef",
+    "statusBar.background": "#0f0f0f",
+    "tab.activeBackground": "#2f2f2f",
+    "tab.inactiveBackground": "#151515",
+    "titleBar.activeBackground": "#1f1f1f",
+    "titleBar.inactiveBackground": "#0f0f0f"
+  }
+}

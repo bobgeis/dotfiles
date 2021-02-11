@@ -31,7 +31,7 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 # \$(parse_git_branch)  # get the git branch name, in parens
 # \[\033[0m\]           # make it white again
 # \n                    # optional newline
-# $                     # dollar sign :)
+# >                     # ket sign:if you copy a command into a md doc, it gets quote highlighting
 # See numerous stack overflow posts and articles for more info
 
 # symlink-configs() {
@@ -246,6 +246,7 @@ alias set-user-email="git config user.email " # follow with "you@email.com"
 alias gd="git diff"
 alias gds="git diff --stat"
 alias gda="git diff --staged"
+alias gdw="git diff --color-words"
 
 # git fetch
 alias gf="git fetch"
@@ -306,6 +307,7 @@ function glod(){
     fi
 }
 alias glodd="glod 1"
+alias glop="git log --graph --decorate --pretty=format:'%C(yellow)%h %Cgreen%cd%C(bold red)%d%Creset %s' --abbrev-commit --date=short"
 # alias glfc="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S"
 # alias glfm="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep"
 # the below are from https://tekin.co.uk/2020/11/patterns-for-searching-git-revision-histories

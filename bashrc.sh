@@ -123,6 +123,10 @@ function fs() { # file size: get size of file or directory
 # List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
 alias ducks='du -cks * | sort -rn | head -11'
 
+# grep
+alias rg="grep" # comment this if you actually have ripgrep installed
+alias ripgrep="rg"
+
 # git
 alias g="git"
 alias gitalias="alias | grep git"
@@ -455,6 +459,7 @@ alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
 alias rmnmib="rm -rf node_modules && npm i && bb"
+alias rmlock="rm package-lock.json"
 alias npm-dev="npm start"
 alias npm-test="npm test"
 alias npm-test-app="npm test App.test.tsx"

@@ -438,6 +438,13 @@ alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3"
 
 
 
+# java
+
+# run spring boot with maven
+alias mvn-boot="mvn spring-boot:run"
+
+
+
 
 # node
 export NVM_DIR="$HOME/.nvm"

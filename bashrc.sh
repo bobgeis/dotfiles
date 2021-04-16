@@ -465,7 +465,7 @@ nvmi() {
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
-alias rmnmib="rm -rf node_modules && npm i && bb"
+alias rmnmib="rm -rf node_modules && npm i ; bb"
 alias rmlock="rm package-lock.json"
 alias npm-dev="npm start"
 alias npm-test="npm test"

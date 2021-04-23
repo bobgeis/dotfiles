@@ -76,6 +76,10 @@ function brew-install-everything() { # things to install
   brew install tree # https://formulae.brew.sh/formula/tree#default
 }
 
+function enable-brew-bash-completion() {
+  [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+}
+
 ######
 # cd #
 ######
@@ -112,10 +116,6 @@ alias marks="ls ~/.marks"
 alias cd="cd -P"
 complete -d cd # make tab completion with cd only suggest directories
 
-# bind up and down arrows to search history for leading part of command
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
-
 ########
 # kill #
 ########
@@ -144,7 +144,7 @@ function lsf() {
 ######
 
 alias psa="ps aux"
-alias psau="ps aux | rg $USER"
+alias psau="ps aux | grep $USER"
 
 ########
 # misc #
@@ -173,6 +173,10 @@ function fs() { # file size: get size of file or directory
 }
 # List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
 alias ducks='du -cks * | sort -rn | head -11'
+
+# bind up and down arrows to search history for leading part of command
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
 
 #######
 # git #
@@ -543,6 +547,7 @@ alias testOnce="npx react-scripts test --watchAll=false --all && echo test succe
 # ripgrep / grep
 alias ripgrep="rg" # https://github.com/BurntSushi/ripgrep
 # alias rg="grep" # uncomment this if you don't have rg
+alias grep="rg" # comment this if you don't have rg, or don't want to replace grep with rg
 alias rgv="rg -v" # inverted grep
 
 #######
@@ -593,7 +598,7 @@ alias disable-file-extension-change-warning="defaults write com.apple.finder FXE
 # completion #
 ##############
 
-# load bash completion
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+# load bash completion - for some reason this works best called at the bottom
+enable-brew-bash-completion
 
 

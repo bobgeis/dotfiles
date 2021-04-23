@@ -75,11 +75,6 @@ function brew-install-everything() { # things to install
   brew install ripgrep # https://github.com/BurntSushi/ripgrep
   brew install tree # https://formulae.brew.sh/formula/tree#default
 }
-# load bash completion
-[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-if [ -f /sw/etc/bash_completion ]; then
-  \. /sw/etc/bash_completion
-fi
 
 ######
 # cd #
@@ -546,9 +541,8 @@ alias testOnce="npx react-scripts test --watchAll=false --all && echo test succe
 ######
 
 # ripgrep / grep
-# uncomment the one you use
-# alias rg="grep"
-alias rg="ripgrep" # https://github.com/BurntSushi/ripgrep
+alias ripgrep="rg" # https://github.com/BurntSushi/ripgrep
+# alias rg="grep" # uncomment this if you don't have rg
 alias rgv="rg -v" # inverted grep
 
 #######
@@ -592,3 +586,14 @@ alias find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (not
 alias show-dot-files-in-finder="defaults write com.apple.finder AppleShowAllFiles YES" # the quick keybinding is Cmd-Shift-.
 alias show-path-bar-in-finder="defaults write com.apple.finder ShowPathbar -bool true"
 alias disable-file-extension-change-warning="defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"
+
+
+
+##############
+# completion #
+##############
+
+# load bash completion
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+
+

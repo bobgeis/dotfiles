@@ -56,7 +56,35 @@ alias code-prof="code ~/.profile"
 alias code-ssh="code ~/.ssh/config"
 alias code-tmux="code ~/.tmux.conf"
 
-# cd
+########
+# brew #
+########
+
+# https://formulae.brew.sh/
+# You may need to get off any vpn for brew to install properly. If this is an issue, the error will be SHA256 mismatches.
+alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
+
+function brew-install-everything() { # things to install
+  echo "brew installing everything"
+  brew install bash # https://formulae.brew.sh/formula/bash#default
+  # in macos, the default bash is /bin/bash the homebrew bash is /usr/local/bin/bash
+  # to swap to the brew bash, you need to go: System Preferences > Users & Groups > Unlock > Right click your user > Advanced Options > Login shell
+  brew install bash-completion2 # https://formulae.brew.sh/formula/bash-completion@2#default
+  # bash v4+ uses bash-completion@2. If installing this doesn't work, make sure you are using the bash installed by brew (see above)
+  brew install fzf # https://github.com/junegunn/fzf
+  brew install ripgrep # https://github.com/BurntSushi/ripgrep
+  brew install tree # https://formulae.brew.sh/formula/tree#default
+}
+# load bash completion
+[[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+if [ -f /sw/etc/bash_completion ]; then
+  \. /sw/etc/bash_completion
+fi
+
+######
+# cd #
+######
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -77,12 +105,32 @@ function mkcd() {
 	mkdir -pv $1 && cd $1;
 }
 
-# kill
+# cd bookmarks http://karolis.koncevicius.lt/posts/fast_navigation_in_the_command_line/
+# export CDPATH=".:~/.marks/"
+export CDPATH=.:~/.marks/
+function mark {
+  ln -sv "$(pwd)" ~/.marks/"$1"
+}
+alias marks="ls ~/.marks"
+alias cd="cd -P"
+complete -d cd # make tab completion with cd only suggest directories
+
+# bind up and down arrows to search history for leading part of command
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
+########
+# kill #
+########
+
 alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe
 alias kill9="kill -9" # kill with prejudice
 alias killk="kill --KILL" # same as kill9
 
-# ls
+######
+# ls #
+######
+
 export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: https://www.norbauer.com/rails-consulting/notes/ls-colors-and-terminal-app.html#:~:text=The%20values%20in%20LSCOLORS%20are,color%20and%20a%20background%20color.
 # to get colors in linux use '--color=auto'
 # to get colors in macos use '-G'
@@ -94,11 +142,17 @@ function lsf() {
   ls -G **/*$1*
 }
 
-# ps
-alias psa="ps aux"
-alias psau="ps aux | grep $USER"
+######
+# ps #
+######
 
-# misc
+alias psa="ps aux"
+alias psau="ps aux | rg $USER"
+
+########
+# misc #
+########
+
 # alias c="for n in {1..50}; do echo; done; clear"
 alias c="reset"
 alias sound="afplay /System/Library/Sounds/Submarine.aiff"
@@ -123,11 +177,10 @@ function fs() { # file size: get size of file or directory
 # List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
 alias ducks='du -cks * | sort -rn | head -11'
 
-# grep
-alias rg="grep" # comment this if you actually have ripgrep installed
-alias ripgrep="rg"
+#######
+# git #
+#######
 
-# git
 alias g="git"
 alias gitalias="alias | grep git"
 alias git-alias="alias | grep git"
@@ -375,7 +428,6 @@ function git-children-of() {
   done
 }
 
-
 # git show
 alias gsw="git show"
 alias gsws="git show --stat" # probably superior to `glod`
@@ -417,36 +469,26 @@ alias gtpu="git tag -d prebase" # remove the prebase tag
 alias gwc="git whatchanged"
 alias gwco="git whatchanged --oneline"
 
-# ssh
-alias make-ssh-key="ssh-keygen -t rsa -C " #email address to follow
-# when prompted enter the name of the file (BEWARE OVERWRITES!)
-# when prompted enter the passphrase, just press enter twice for none (recommended)
-alias attach-new-key="ssh-add " # path to private key to follow
-# paste the contents of the .pub file into wherever you need to communicate securely (eg github)
-
-# tmux (https://formulae.brew.sh/formula/tmux#default)
-alias tmuc="tmux -CC"
-alias tmuca="tmux -CC attach"
-alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
-
-## youtube-dl https://github.com/ytdl-org/youtube-dl
-alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3" # follow this with the url
-# here is an example with output template:
-# > ytmp3 -o 'SecretMelodyX3.$(ext)s' https://www.youtube.com/watch?v=I-8px_1fIqg
-# Note the single quotes around the output template and that the extension is ".$(ext)s" those are all important!
-# If you do not do it that way, the audio may fail to extract.
-
-
-
-# java
+########
+# java #
+########
 
 # run spring boot with maven
 alias mvn-boot="mvn spring-boot:run"
 
+#######
+# nim #
+#######
 
+alias nim-up="choosenim update self && choosenim update stable && choosenim update devel"
 
+# upgrade everything. SLOW!
+alias all-up="nim-up && brew-up"
 
-# node
+########
+# node #
+########
+
 export NVM_DIR="$HOME/.nvm"
 nvmi() {
     # loading nvm in every terminal introduced noticeable delay
@@ -491,26 +533,56 @@ function npm-run-lint-validate-license-coverage-build() {
 }
 alias npm-prepush="npm-run-lint-validate-license-coverage-build"
 
-# react
+#########
+# react #
+#########
+
 alias testOnce="npx react-scripts test --watchAll=false --all && echo test succeeded" # this is present as a reminder
 
-## brew
-alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
+######
+# rg #
+######
 
-function brew-install-everything() { # things to install
-  echo "brew installing everything"
-  # brew install bash
-  # brew install bash-completion2
-  # brew install tree
-}
+# ripgrep / grep
+# uncomment the one you use
+# alias rg="grep"
+alias rg="ripgrep" # https://github.com/BurntSushi/ripgrep
+alias rgv="rg -v" # inverted grep
 
-## nim
-alias nim-up="choosenim update self && choosenim update stable && choosenim update devel"
+#######
+# ssh #
+#######
 
-# upgrade everything. SLOW!
-alias all-up="nim-up && brew-up"
+alias make-ssh-key="ssh-keygen -t rsa -C " #email address to follow
+# when prompted enter the name of the file (BEWARE OVERWRITES!)
+# when prompted enter the passphrase, just press enter twice for none (recommended)
+alias attach-new-key="ssh-add " # path to private key to follow
+# paste the contents of the .pub file into wherever you need to communicate securely (eg github)
 
-# reminders
+########
+# tmux #
+########
+
+# https://formulae.brew.sh/formula/tmux#default
+alias tmuc="tmux -CC"
+alias tmuca="tmux -CC attach"
+alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
+
+##############
+# youtube-dl #
+##############
+
+# https://github.com/ytdl-org/youtube-dl
+alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3" # follow this with the url
+# here is an example with output template:
+# > ytmp3 -o 'SecretMelodyX3.$(ext)s' https://www.youtube.com/watch?v=I-8px_1fIqg
+# Note the single quotes around the output template and that the extension is ".$(ext)s" those are all important!
+# If you do not do it that way, the audio may fail to extract.
+
+#############
+# reminders #
+#############
+
 alias make-executable="chmod +x" #filenamehere#
 alias find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (note colon) finds the process using port 9080, so you can kill it # https://en.wikipedia.org/wiki/Lsof#:~:text=lsof%20is%20a%20command%20meaning,the%20processes%20that%20opened%20them.
 

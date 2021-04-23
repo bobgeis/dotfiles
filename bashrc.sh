@@ -1,4 +1,8 @@
 
+#############
+# beginning #
+#############
+
 # this is intended to be sourced by the real .bashrc using `source ~/dotfiles/bashrc.sh` or something equivalent
 echo "sourced: ${BASH_SOURCE[0]}"
 
@@ -31,7 +35,8 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 # \$(parse_git_branch)  # get the git branch name, in parens
 # \[\033[0m\]           # make it white again
 # \n                    # optional newline
-# >                     # ket sign:if you copy a command into a md doc, it gets quote highlighting
+# >                     # optional ket sign: if you copy a command into a md doc, it gets quote highlighting
+# $                     # optional dollar sign: won't accidentally send things into a file
 # See numerous stack overflow posts and articles for more info
 
 # symlink-configs() {
@@ -593,9 +598,9 @@ alias disable-file-extension-change-warning="defaults write com.apple.finder FXE
 
 
 
-##############
-# completion #
-##############
+##########
+# ending #
+##########
 
 # load bash completion - for some reason this works best called at the bottom
 enable-brew-bash-completion

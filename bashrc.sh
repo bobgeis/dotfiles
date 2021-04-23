@@ -40,7 +40,6 @@ export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(pars
 #   ln -s "$DOTFILES_PATH/.tmux.conf" ~/.tmux.conf
 # }
 
-
 # edit configs
 alias reload="source ~/.bash_profile"
 alias code-.bash="code ~/.bashrc"
@@ -115,68 +114,6 @@ function mark {
 alias marks="ls ~/.marks"
 alias cd="cd -P"
 complete -d cd # make tab completion with cd only suggest directories
-
-########
-# kill #
-########
-
-alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe
-alias kill9="kill -9" # kill with prejudice
-alias killk="kill --KILL" # same as kill9
-
-######
-# ls #
-######
-
-export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: https://www.norbauer.com/rails-consulting/notes/ls-colors-and-terminal-app.html#:~:text=The%20values%20in%20LSCOLORS%20are,color%20and%20a%20background%20color.
-# to get colors in linux use '--color=auto'
-# to get colors in macos use '-G'
-alias ls="ls -vG"
-alias l.="ls -dG .*"
-alias la="ls -AG"
-alias ll="ls -alG"
-function lsf() {
-  ls -G **/*$1*
-}
-
-######
-# ps #
-######
-
-alias psa="ps aux"
-alias psau="ps aux | grep $USER"
-
-########
-# misc #
-########
-
-# alias c="for n in {1..50}; do echo; done; clear"
-alias c="reset"
-alias sound="afplay /System/Library/Sounds/Submarine.aiff"
-alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
-alias bb="blowsound && blowsound"
-alias sudo="sudo " # allow aliases to be sudo'ed
-alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
-alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
-
-function fs() { # file size: get size of file or directory
-	if du -b /dev/null > /dev/null 2>&1; then
-		local arg=-sbh;
-	else
-		local arg=-sh;
-	fi
-	if [[ -n "$@" ]]; then
-		du $arg -- "$@";
-	else
-		du $arg .[^.]* ./*;
-	fi;
-}
-# List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
-alias ducks='du -cks * | sort -rn | head -11'
-
-# bind up and down arrows to search history for leading part of command
-bind '"\e[A":history-search-backward'
-bind '"\e[B":history-search-forward'
 
 #######
 # git #
@@ -477,6 +414,61 @@ alias gwco="git whatchanged --oneline"
 # run spring boot with maven
 alias mvn-boot="mvn spring-boot:run"
 
+########
+# kill #
+########
+
+alias killt="kill --TERM" # this is default signal for kill. let's process exist gracefully. maybe
+alias kill9="kill -9" # kill with prejudice
+alias killk="kill --KILL" # same as kill9
+
+######
+# ls #
+######
+
+export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: https://www.norbauer.com/rails-consulting/notes/ls-colors-and-terminal-app.html#:~:text=The%20values%20in%20LSCOLORS%20are,color%20and%20a%20background%20color.
+# to get colors in linux use '--color=auto'
+# to get colors in macos use '-G'
+alias ls="ls -vG"
+alias l.="ls -dG .*"
+alias la="ls -AG"
+alias ll="ls -alG"
+function lsf() {
+  ls -G **/*$1*
+}
+
+########
+# misc #
+########
+
+# alias c="for n in {1..50}; do echo; done; clear"
+alias c="reset"
+alias sound="afplay /System/Library/Sounds/Submarine.aiff"
+alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
+alias bb="blowsound && blowsound"
+alias sudo="sudo " # allow aliases to be sudo'ed
+alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
+alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
+
+function fs() { # file size: get size of file or directory
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+# List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
+alias ducks='du -cks * | sort -rn | head -11'
+
+# bind up and down arrows to search history for leading part of command
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
 #######
 # nim #
 #######
@@ -533,6 +525,13 @@ function npm-run-lint-validate-license-coverage-build() {
   npm run coverage
 }
 alias npm-prepush="npm-run-lint-validate-license-coverage-build"
+
+######
+# ps #
+######
+
+alias psa="ps aux"
+alias psau="ps aux | grep $USER"
 
 #########
 # react #

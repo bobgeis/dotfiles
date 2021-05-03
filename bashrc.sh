@@ -438,6 +438,7 @@ alias ls="ls -vG"
 alias l.="ls -dG .*"
 alias la="ls -AG"
 alias ll="ls -alG"
+alias lsd="ls -d ./*" # list just directories
 function lsf() {
   ls -G **/*$1*
 }
@@ -469,6 +470,9 @@ function fs() { # file size: get size of file or directory
 }
 # List top ten largest files/directories in current directory, credit: https://github.com/cixtor/dotfiles/blob/master/.aliases
 alias ducks='du -cks * | sort -rn | head -11'
+
+# find the most frequently used commands in bash history
+alias frequent-commands="history | awk '{print $2}' | sort | uniq -c | sort -rn | head"
 
 # bind up and down arrows to search history for leading part of command
 bind '"\e[A":history-search-backward'

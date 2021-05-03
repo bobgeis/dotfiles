@@ -418,6 +418,7 @@ alias gwco="git whatchanged --oneline"
 
 # run spring boot with maven
 alias mvn-boot="mvn spring-boot:run"
+alias mvn-run="mvn spring-boot:run"
 
 ########
 # kill #

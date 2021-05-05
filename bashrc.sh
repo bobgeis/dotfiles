@@ -140,11 +140,13 @@ alias ga-test="git add **test**"
 alias gau="git reset" # "git add undo" - unstages all staged files
 
 # git branch
-alias gb="git branch"
-alias gbr="git branch -r"
+alias gb="git branch" # local branches
+alias gbr="git branch -r" # remote branches
+alias gba="git branch -a" # all branches, including remote
 alias gbv="git branch -vv" # wordier
 alias gbs="git branch --sort=-committerdate" # sort by commit date
-alias gba="git branch -a" # all branches, including remote
+alias gbsr="git branch --sort=-committerdate -r"
+alias gbsa="git branch --sort=-committerdate -a"
 alias gbD="git branch -D" # delete a branch
 alias gbDr="git push remote -d" # delete a REMOTE branch, be careful!
 alias gbf="git branch -f" # <branch to move> <target commit> # move a branch to a specific commit
@@ -181,9 +183,9 @@ function git-checkout-branch-by-search-string() {
 alias gcof="git-checkout-branch-by-search-string"
 function git-checkout-remote-branch-by-search-string() {
   local maybe_branch_name
-  maybe_branch_name=$(git branch --sort=-committerdate -r | grep $1 | head -n 1)
+  maybe_branch_name=$(git branch --sort=-committerdate -r | grep $1 | head -n 1 | cut -d/ -f 2-20)
   if [ -n "$maybe_branch_name" ]; then
-    git checkout "${maybe_branch_name:2}"
+    git checkout "${maybe_branch_name#/}"
   else
     echo "Could not find remote branch matching $1"
   fi

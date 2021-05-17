@@ -424,6 +424,7 @@ alias mvn-run="mvn spring-boot:run"
 alias mvn-cleanrun="mvn clean && mvn spring-boot:run"
 alias mvn-ci="mvn clean && mvn clean install"
 alias mvn-cir="mvn clean && mvn clean install && mvn spring-boot:run"
+alias mvn-clear-cache="rm -rf ~/.m2/repository"
 
 ########
 # kill #

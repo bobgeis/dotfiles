@@ -75,6 +75,7 @@ function brew-install-everything() { # things to install
   # to swap to the brew bash, you need to go: System Preferences > Users & Groups > Unlock > Right click your user > Advanced Options > Login shell
   brew install bash-completion2 # https://formulae.brew.sh/formula/bash-completion@2#default
   # bash v4+ uses bash-completion@2. If installing this doesn't work, make sure you are using the bash installed by brew (see above)
+  # brew install docker # https://docs.docker.com/docker-for-mac/install/
   brew install fzf # https://github.com/junegunn/fzf
   brew install jq # https://formulae.brew.sh/formula/jq
   brew install ripgrep # https://github.com/BurntSushi/ripgrep
@@ -422,9 +423,10 @@ alias gwco="git whatchanged --oneline"
 # run spring boot with maven
 alias mvn-boot="mvn spring-boot:run"
 alias mvn-run="mvn spring-boot:run"
+alias mvn-runD='mvn spring-boot:run -Drun.arguments="-Djavax.net.ssl.trustStore=cacerts"'
 alias mvn-cleanrun="mvn clean && mvn spring-boot:run"
 alias mvn-ci="mvn clean && mvn clean install"
-alias mvn-cir="mvn clean && mvn clean install && mvn spring-boot:run"
+alias mvn-cir="mvn clean && mvn clean install && mvn-runD"
 alias mvn-clear-cache="rm -rf ~/.m2/repository"
 
 ########

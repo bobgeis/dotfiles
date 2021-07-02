@@ -424,11 +424,10 @@ alias gwco="git whatchanged --oneline"
 # run spring boot with maven
 alias mvn-boot="mvn spring-boot:run"
 alias mvn-run="mvn spring-boot:run"
-alias mvn-runD='mvn spring-boot:run -Drun.arguments="-Djavax.net.ssl.trustStore=cacerts"'
+alias mvn-r="mvn spring-boot:run"
 alias mvn-cleanrun="mvn clean && mvn spring-boot:run"
-alias mvn-ci="mvn clean && mvn clean install"
-alias mvn-cir="mvn clean && mvn clean install && mvn-run"
-alias mvn-cit="mvn clean && mvn clean install && bin/test.sh"
+alias mvn-cv="mvn clean verify"
+alias mvn-ci="mvn clean install"
 alias mvn-clear-cache="rm -rf ~/.m2/repository"
 
 ########

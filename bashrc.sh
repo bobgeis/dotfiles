@@ -118,9 +118,20 @@ export CDPATH=.:~/.marks/
 function mark {
   ln -sv "$(pwd)" ~/.marks/"$1"
 }
+alias add-mark-to-this-dir="mark"
 alias marks="ls ~/.marks"
 alias cd="cd -P"
 complete -d cd # make tab completion with cd only suggest directories
+
+##########
+# docker #
+##########
+
+# https://docs.docker.com/engine/reference/commandline/ps/
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dpsafo="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Command}}\t{{.Status}}\t{{.Ports}}'"
+alias dpsfo="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Command}}\t{{.Status}}\t{{.Ports}}'"
 
 #######
 # git #

@@ -474,6 +474,7 @@ alias c="reset"
 alias sound="afplay /System/Library/Sounds/Submarine.aiff"
 alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
 alias bb="blowsound && blowsound"
+alias make-exec="chmod 755 " # follow with filename to make it executable
 alias sudo="sudo " # allow aliases to be sudo'ed
 alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
 alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases

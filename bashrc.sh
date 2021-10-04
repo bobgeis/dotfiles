@@ -101,6 +101,7 @@ alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 alias ~="cd ~"
 alias cd-="cd -"
+alias cd..="cd .."
 alias cddt="cd ~/Desktop"
 alias cddl="cd ~/Downloads"
 alias cddoc="cd ~/Documents"
@@ -478,6 +479,7 @@ alias make-exec="chmod 755 " # follow with filename to make it executable
 alias sudo="sudo " # allow aliases to be sudo'ed
 alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
 alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
+alias show-env-vars="printenv"
 
 function fs() { # file size: get size of file or directory
 	if du -b /dev/null > /dev/null 2>&1; then

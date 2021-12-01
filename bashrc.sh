@@ -101,6 +101,7 @@ alias ..4="cd ../../../.."
 alias ..5="cd ../../../../.."
 alias ~="cd ~"
 alias cd-="cd -"
+alias cd..="cd .."
 alias cddt="cd ~/Desktop"
 alias cddl="cd ~/Downloads"
 alias cddoc="cd ~/Documents"
@@ -118,9 +119,20 @@ export CDPATH=.:~/.marks/
 function mark {
   ln -sv "$(pwd)" ~/.marks/"$1"
 }
+alias add-mark-to-this-dir="mark"
 alias marks="ls ~/.marks"
 alias cd="cd -P"
 complete -d cd # make tab completion with cd only suggest directories
+
+##########
+# docker #
+##########
+
+# https://docs.docker.com/engine/reference/commandline/ps/
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dpsafo="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Command}}\t{{.Status}}\t{{.Ports}}'"
+alias dpsfo="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Command}}\t{{.Status}}\t{{.Ports}}'"
 
 #######
 # git #
@@ -258,9 +270,9 @@ alias gf="git fetch"
 
 # git log
 alias gl="git log"
-alias glo="git log --oneline -n 10"
-alias gloo="git log --oneline -n 20"
-alias glooo="git log --oneline"
+alias glo="git log -n 10"
+alias gloo="git log -n 20"
+alias glooo="git log"
 function git-log-oneline-chunked() {
   local chunks
   local chunk
@@ -288,17 +300,17 @@ function git-log-oneline-children() {
   do
     if [ ${#child} -gt 0 ]
     then
-      git log --oneline -n 1 "$child"
+      git log -n 1 "$child"
       child=$(git-children-of $child | tail -1)
     fi
     count=$(( $count-1 ))
   done
 }
 alias gloc="git-log-oneline-children"
-alias gll="git log -3 HEAD"
-alias glll="git log -6 HEAD"
-alias glos="git log --stat --oneline -n 5"
-alias gloss="git log --stat --oneline"
+alias gll="git log --pretty=fuller --date=iso -3 HEAD"
+alias glll="git log --pretty=fuller --date=iso -6 HEAD"
+alias glos="git log --stat -n 5"
+alias gloss="git log --stat"
 function glod(){
     if [ $# -eq 0 ]; then
         git show --stat -r "HEAD"
@@ -312,16 +324,17 @@ function glod(){
     fi
 }
 alias glodd="glod 1"
-alias glop="git log --graph --decorate --pretty=format:'%C(yellow)%h %Cgreen%cd%C(bold red)%d%Creset %s' --abbrev-commit --date=short"
-# alias glfc="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S"
-# alias glfm="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep"
+alias glop="git log --graph"
+alias glp="git log -p" # glp 3ccb5fc # see all the changes in that commit
 # the below are from https://tekin.co.uk/2020/11/patterns-for-searching-git-revision-histories
-# note that "GNU ls" it `gls`; we are hiding it with this alias
-alias gls="git log -S" # pickaxe: gls "method-name", second arg can be a filename to limit search to that file
+# note that "GNU ls" is `gls`; we are hiding it with this alias
+alias gls="git log -S" # pickaxe: gls "code search",
+# ^finds all commits where the first arg is present in the code change itself (added or removed).
+# ^second arg can be a filename to limit search to that file
 alias glsp="git log -p -S" # see patches
 alias glsr="git log --reverse -S" # see first commit of a snippet
 alias glspr="git log -p --reverse -S" # see first commit of a snippet
-alias glg="git log --grep" # commit search: glg "ui"
+alias glg="git log --grep" # commit msg search: glg "commit msg"
 alias glG="git log -G" # like git log -S, but takes a REGEX!
 
 # git pull
@@ -335,7 +348,7 @@ alias gpuf="git push --force-with-lease"
 alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 
 # git rebase
-alias gras="git rebase -i --autosquash"
+# alias gras="git rebase -i --autosquash" # autosquash is on in the config
 alias gri="git rebase -i"
 function grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
   git rebase "$1^"
@@ -463,9 +476,11 @@ alias c="reset"
 alias sound="afplay /System/Library/Sounds/Submarine.aiff"
 alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
 alias bb="blowsound && blowsound"
+alias make-exec="chmod 755 " # follow with filename to make it executable
 alias sudo="sudo " # allow aliases to be sudo'ed
 alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
 alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
+alias show-env-vars="printenv"
 
 function fs() { # file size: get size of file or directory
 	if du -b /dev/null > /dev/null 2>&1; then
@@ -521,6 +536,8 @@ alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0
 alias rmnm="rm -rf node_modules"
 alias rmnmi="rm -rf node_modules && npm i"
 alias rmnmib="rm -rf node_modules && npm i ; bb"
+alias rmnmci="rm -rf node_modules && npm ci"
+alias rmnmcib="rm -rf node_modules && npm ci ; bb"
 alias rmlock="rm package-lock.json"
 alias rmlnmib="rm package-lock.json ; rm -rf node_modules && npm i ; bb"
 alias npm-dev="npm start"

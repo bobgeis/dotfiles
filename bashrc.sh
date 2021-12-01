@@ -270,9 +270,9 @@ alias gf="git fetch"
 
 # git log
 alias gl="git log"
-alias glo="git log --oneline -n 10"
-alias gloo="git log --oneline -n 20"
-alias glooo="git log --oneline"
+alias glo="git log -n 10"
+alias gloo="git log -n 20"
+alias glooo="git log"
 function git-log-oneline-chunked() {
   local chunks
   local chunk
@@ -300,17 +300,17 @@ function git-log-oneline-children() {
   do
     if [ ${#child} -gt 0 ]
     then
-      git log --oneline -n 1 "$child"
+      git log -n 1 "$child"
       child=$(git-children-of $child | tail -1)
     fi
     count=$(( $count-1 ))
   done
 }
 alias gloc="git-log-oneline-children"
-alias gll="git log -3 HEAD"
-alias glll="git log -6 HEAD"
-alias glos="git log --stat --oneline -n 5"
-alias gloss="git log --stat --oneline"
+alias gll="git log --pretty=fuller --date=iso -3 HEAD"
+alias glll="git log --pretty=fuller --date=iso -6 HEAD"
+alias glos="git log --stat -n 5"
+alias gloss="git log --stat"
 function glod(){
     if [ $# -eq 0 ]; then
         git show --stat -r "HEAD"
@@ -324,16 +324,17 @@ function glod(){
     fi
 }
 alias glodd="glod 1"
-alias glop="git log --graph --decorate --pretty=format:'%C(yellow)%h %Cgreen%cd%C(bold red)%d%Creset %s' --abbrev-commit --date=short"
-# alias glfc="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S"
-# alias glfm="git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep"
+alias glop="git log --graph"
+alias glp="git log -p" # glp 3ccb5fc # see all the changes in that commit
 # the below are from https://tekin.co.uk/2020/11/patterns-for-searching-git-revision-histories
-# note that "GNU ls" it `gls`; we are hiding it with this alias
-alias gls="git log -S" # pickaxe: gls "method-name", second arg can be a filename to limit search to that file
+# note that "GNU ls" is `gls`; we are hiding it with this alias
+alias gls="git log -S" # pickaxe: gls "code search",
+# ^finds all commits where the first arg is present in the code change itself (added or removed).
+# ^second arg can be a filename to limit search to that file
 alias glsp="git log -p -S" # see patches
 alias glsr="git log --reverse -S" # see first commit of a snippet
 alias glspr="git log -p --reverse -S" # see first commit of a snippet
-alias glg="git log --grep" # commit search: glg "ui"
+alias glg="git log --grep" # commit msg search: glg "commit msg"
 alias glG="git log -G" # like git log -S, but takes a REGEX!
 
 # git pull
@@ -347,7 +348,7 @@ alias gpuf="git push --force-with-lease"
 alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 
 # git rebase
-alias gras="git rebase -i --autosquash"
+# alias gras="git rebase -i --autosquash" # autosquash is on in the config
 alias gri="git rebase -i"
 function grip(){ # git rebase interactive previous - rebase on the commit before the given one, good for squashing into a particular commit found with git log
   git rebase "$1^"

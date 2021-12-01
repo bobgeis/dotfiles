@@ -69,7 +69,12 @@ alias code-tmux="code ~/.tmux.conf"
 alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
 
 function brew-install-everything() { # things to install
-  echo "brew installing everything"
+  echo "brew installing everything:"
+  echo "* bash"
+  echo "* bash-completion2"
+  echo "* fzf"
+  echo "* ripgrep"
+  echo "* tree"
   brew install bash # https://formulae.brew.sh/formula/bash#default
   # in macos, the default bash is /bin/bash the homebrew bash is /usr/local/bin/bash
   # to swap to the brew bash, you need to go: System Preferences > Users & Groups > Unlock > Right click your user > Advanced Options > Login shell
@@ -516,8 +521,13 @@ alias all-up="nim-up && brew-up"
 ########
 # node #
 ########
-
+# Do not use brew to install nvm
+# https://github.com/nvm-sh/nvm
+# curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
+nvmif() {
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+}
 nvmi() {
     # loading nvm in every terminal introduced noticeable delay
     # I was impatient, so now there's a function that loads nvm, called `nvmi`
@@ -526,7 +536,8 @@ nvmi() {
         return
     fi
     echo "initializing nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+    nvmif
+    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 }
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm # This was slow! Moved to nvmi fxn

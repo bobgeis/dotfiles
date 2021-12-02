@@ -249,7 +249,8 @@ alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
 alias gacan="git add . && git commit --amend --no-edit"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
-alias gcdate="git commit --amend --reset-author --no-edit" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
+alias gcnow="git commit --amend --no-edit --date=now" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
+# can rebase from a certain commit with `gri ####` then `gcnow && gric` until caught up.
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
 
 # git clean
@@ -278,6 +279,8 @@ alias gl="git log"
 alias glo="git log -n 10"
 alias gloo="git log -n 20"
 alias glooo="git log"
+alias gloi="git log --date=iso -n 10"
+alias gloii="git log --date=iso"
 function git-log-oneline-chunked() {
   local chunks
   local chunk

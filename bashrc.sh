@@ -128,6 +128,7 @@ alias add-mark-to-this-dir="mark"
 alias marks="ls ~/.marks"
 alias cd="cd -P"
 complete -d cd # make tab completion with cd only suggest directories
+# usage: cd to a directory to mark, and do: $ mark @name then use $ cd @name to return there
 
 ##########
 # docker #
@@ -641,7 +642,7 @@ alias find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (not
 alias show-dot-files-in-finder="defaults write com.apple.finder AppleShowAllFiles YES" # the quick keybinding is Cmd-Shift-.
 alias show-path-bar-in-finder="defaults write com.apple.finder ShowPathbar -bool true"
 alias disable-file-extension-change-warning="defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"
-
+alias paste-without-formatting-by-default="https://havecamerawilltravel.com/set-paste-match-style-default-mac-osx/"
 
 
 ##########

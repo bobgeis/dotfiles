@@ -487,7 +487,7 @@ alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
 alias bb="blowsound && blowsound"
 alias make-exec="chmod 755 " # follow with filename to make it executable
 alias sudo="sudo " # allow aliases to be sudo'ed
-alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
+# alias echo-path="alias path='echo -e ${PATH//:/\\n}'"
 alias map="xargs -n1" # map 'function', see https://github.com/mathiasbynens/dotfiles/blob/main/.aliases
 alias show-env-vars="printenv"
 
@@ -578,6 +578,13 @@ function npm-run-lint-validate-license-coverage-build() {
 }
 alias npm-prepush="npm-run-lint-validate-license-coverage-build"
 
+##########
+# podman #
+##########
+
+# in the presence of podman, alias docker to podman
+type podman >/dev/null 2>&1 && alias docker=podman
+
 ######
 # ps #
 ######
@@ -652,4 +659,6 @@ alias paste-without-formatting-by-default="https://havecamerawilltravel.com/set-
 # load bash completion - for some reason this works best called at the bottom
 enable-brew-bash-completion
 
+# make sure the brew installed versions take priority
+export PATH="/usr/local/bin:${PATH}"
 

@@ -21,6 +21,9 @@
   cmd = code --wait --diff $LOCAL $REMOTE
 [rebase]
   autosquash = true
+# [merge]
+  ## need git 2.35+ for zdiff3
+  conflictStyle = zdiff3
 
 # fancy formats
 # see https://git-scm.com/docs/pretty-formats

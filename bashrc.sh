@@ -583,7 +583,7 @@ alias npm-prepush="npm-run-lint-validate-license-coverage-build"
 ##########
 
 # in the presence of podman, alias docker to podman
-type podman >/dev/null 2>&1 && alias docker=podman
+# type podman >/dev/null 2>&1 && alias docker=podman
 
 ######
 # ps #

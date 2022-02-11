@@ -269,6 +269,7 @@ alias gd="git diff"
 alias gds="git diff --stat"
 alias gda="git diff --staged"
 alias gdw="git diff --color-words"
+alias gdws="git diff --color-words --staged"
 alias gdwh="git diff --color-words HEAD^"
 
 # git fetch

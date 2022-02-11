@@ -538,12 +538,17 @@ nvmi() {
     # I was impatient, so now there's a function that loads nvm, called `nvmi`
     # multiple calls will noop
     if [ -n "$(which node)" ]; then
+        echo "node version: $(node --version)"
         return
     fi
     echo "initializing nvm"
     nvmif
     # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+    if [ -n "$(which node)" ]; then
+        echo "node version: $(node --version)"
+        return
+    fi
 }
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm # This was slow! Moved to nvmi fxn
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -627,6 +632,19 @@ alias attach-new-key="ssh-add " # path to private key to follow
 alias tmuc="tmux -CC"
 alias tmuca="tmux -CC attach"
 alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (https://formulae.brew.sh/cask/iterm2#default) profile, see https://gitlab.com/gnachman/iterm2/-/wikis/tmux-Integration-Best-Practices
+
+########
+# yarn #
+########
+
+# installing yarn
+# newer nodes come with corepack https://nodejs.org/api/corepack.html
+# corepack enable # this will turn on yarn :)
+# npm -g i yarn # install yarn if corepack isn't available
+# note that yarn 1.x is being supported because yarn 2 "berry" is very different ()
+alias y="yarn"
+
+alias ynf="yarn info --verbose --no-emoji"
 
 ##############
 # youtube-dl #

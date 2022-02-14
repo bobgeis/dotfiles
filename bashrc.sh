@@ -461,6 +461,12 @@ alias killt="kill --TERM" # this is default signal for kill. let's process exist
 alias kill9="kill -9" # kill with prejudice
 alias killk="kill --KILL" # same as kill9
 
+#########
+# lerna #
+#########
+
+alias lerna-rmnm='npx lerna exec -- rm -rf node_modules ; rm -rf node_modules'
+
 ######
 # ls #
 ######
@@ -645,6 +651,9 @@ alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (http
 alias y="yarn"
 
 alias ynf="yarn info --verbose --no-emoji"
+
+alias rmnmy='rm -rf node_modules && yarn'
+alias rmnmyb='rm -rf node_modules && yarn ; bb'
 
 ##############
 # youtube-dl #

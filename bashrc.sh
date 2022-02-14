@@ -141,6 +141,21 @@ alias dpsafo="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Co
 alias dpsfo="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Command}}\t{{.Status}}\t{{.Ports}}'"
 
 #######
+# fzf #
+#######
+
+# https://github.com/junegunn/fzf
+
+alias install-fzf='brew install fzf'
+
+# search for a file then open it in code
+alias fzfc='code $(fzf)'
+
+# search for files matching a string non-interactively
+alias fzff="fzf -f"
+
+
+#######
 # git #
 #######
 
@@ -474,14 +489,10 @@ alias lerna-rmnm='npx lerna exec -- rm -rf node_modules ; rm -rf node_modules'
 export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: https://www.norbauer.com/rails-consulting/notes/ls-colors-and-terminal-app.html#:~:text=The%20values%20in%20LSCOLORS%20are,color%20and%20a%20background%20color.
 # to get colors in linux use '--color=auto'
 # to get colors in macos use '-G'
-alias ls="ls -vG"
-alias l.="ls -dG .*"
-alias la="ls -AG"
-alias ll="ls -alG"
-alias lsd="ls -d ./*" # list just directories
-function lsf() {
-  ls -G **/*$1*
-}
+alias ls="ls -vG" # list files
+alias l.="ls -dG .*" # list dotted (hidden) files
+alias la="ls -AG" # list all files
+alias ll="ls -alG" # list all files in a column with data
 
 ########
 # misc #

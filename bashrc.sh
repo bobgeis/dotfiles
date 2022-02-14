@@ -148,8 +148,11 @@ alias dpsfo="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Size}}\t{{.Comman
 
 alias install-fzf='brew install fzf'
 
+# search for a dir then cd to it
+alias fzf-cd='cd $(find . -type d | fzf)'
+
 # search for a file then open it in code
-alias fzfc='code $(fzf)'
+alias fzf-code='code $(fzf)'
 
 # search for files matching a string non-interactively
 alias fzff="fzf -f"
@@ -491,6 +494,7 @@ export LSCOLORS=ExFxCxDxBxegedabagacad # with thanks to Leon Huang, see also: ht
 # to get colors in macos use '-G'
 alias ls="ls -vG" # list files
 alias l.="ls -dG .*" # list dotted (hidden) files
+alias lsd="ls -d */" # list directories
 alias la="ls -AG" # list all files
 alias ll="ls -alG" # list all files in a column with data
 

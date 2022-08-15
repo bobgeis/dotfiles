@@ -1,5 +1,9 @@
 .DS_Store
 *.pyc
+secret
 secret/
+*/secret/
+**/secret/
 .git/
 /node_modules/
+**/tempStrippedCopy.*

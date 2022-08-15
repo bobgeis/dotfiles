@@ -176,6 +176,7 @@ alias gai="git add -i"
 alias gap="git add --patch"
 alias ga-test="git add **test**"
 alias gau="git reset" # "git add undo" - unstages all staged files
+alias ga-="git restore --staged -- " # "git add undo" for named file(s0)
 
 # git branch
 alias gb="git branch" # local branches
@@ -254,8 +255,12 @@ function git-add-all-then-git-commit-with-message() {
   git add .
   git commit -m "$*"
 }
-alias gcm="git-commit-with-message"
-alias gacm="git-add-all-then-git-commit-with-message"
+# alias gcm="git-commit-with-message"
+alias gcm="git commit -m "
+alias gcmn="git commit -nm "
+# alias gacm="git-add-all-then-git-commit-with-message"
+alias gacm="git add --all && git commit -m"
+alias gacmn="git add --all && git commit -nm"
 function git-commit-fixup() {
   git commit --fixup ":/$*"
 }
@@ -266,7 +271,9 @@ function git-add-all-then-git-commit-fixup() {
 }
 alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
+alias gcann="git commit --amend --no-edit --no-verify"
 alias gacan="git add . && git commit --amend --no-edit"
+alias gacann="git add . && git commit --amend --no-edit --no-verify"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
 alias gcnow="git commit --amend --no-edit --date=now" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
 # can rebase from a certain commit with `gri ####` then `gcnow && gric` until caught up.
@@ -335,8 +342,7 @@ function git-log-oneline-children() {
   done
 }
 alias gloc="git-log-oneline-children"
-alias gll="git log --pretty=fuller --date=iso -3 HEAD"
-alias glll="git log --pretty=fuller --date=iso -6 HEAD"
+alias gll="git log --stat --pretty=fuller --date=iso"
 alias glos="git log --stat -n 5"
 alias gloss="git log --stat"
 function glod(){
@@ -353,7 +359,7 @@ function glod(){
 }
 alias glodd="glod 1"
 alias glop="git log --graph"
-alias glp="git log -p" # glp 3ccb5fc # see all the changes in that commit
+alias glp="git log -p" # glp 3ccb5fc # see all the changes in that commit, or just glp to see all changes!
 # the below are from https://tekin.co.uk/2020/11/patterns-for-searching-git-revision-histories
 # note that "GNU ls" is `gls`; we are hiding it with this alias
 alias gls="git log -S" # pickaxe: gls "code search",
@@ -361,7 +367,7 @@ alias gls="git log -S" # pickaxe: gls "code search",
 # ^second arg can be a filename to limit search to that file
 alias glsp="git log -p -S" # see patches
 alias glsr="git log --reverse -S" # see first commit of a snippet
-alias glspr="git log -p --reverse -S" # see first commit of a snippet
+alias glspr="git log -p --reverse -S" # see first patch of a snippet
 alias glg="git log --grep" # commit msg search: glg "commit msg"
 alias glG="git log -G" # like git log -S, but takes a REGEX!
 
@@ -371,8 +377,11 @@ alias gpr="git pull --rebase"
 
 # git push
 alias gpu="git push"
+alias gpun="git push --no-verify"
 alias gpuu="git push --set-upstream origin HEAD"
+alias gpuun="git push --no-verify --set-upstream origin HEAD"
 alias gpuf="git push --force-with-lease"
+alias gpufn="git push --force-with-lease --no-verify"
 alias gpufu="git push --force-with-lease --set-upstream origin HEAD"
 
 # git rebase
@@ -571,6 +580,7 @@ nvmi() {
         return
     fi
 }
+nvmi
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm # This was slow! Moved to nvmi fxn
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
@@ -664,7 +674,7 @@ alias start-tmux="/usr/local/bin/tmux -CC new -A -s main" # used in iterm2 (http
 # npm -g i yarn # install yarn if corepack isn't available
 # note that yarn 1.x is being supported because yarn 2 "berry" is very different ()
 alias y="yarn"
-
+alias yifl="yarn install --frozen-lockfile"
 alias ynf="yarn info --verbose --no-emoji"
 
 alias rmnmy='rm -rf node_modules && yarn'

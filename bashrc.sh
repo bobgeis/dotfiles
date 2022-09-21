@@ -207,7 +207,9 @@ function git-checkout-child-commit() {
   git checkout "$forward"
 }
 alias gcoc="git-checkout-child-commit"
+alias gcov="git checkout dev"
 alias gcod="git checkout develop"
+alias gcot="git checkout development"
 alias gcom="git checkout master"
 alias gcon="git checkout main"
 function git-checkout-branch-by-search-string() {

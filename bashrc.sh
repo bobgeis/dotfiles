@@ -291,8 +291,12 @@ alias gcann="git commit --amend --no-edit --no-verify"
 alias gacan="git add . && git commit --amend --no-edit"
 alias gacann="git add . && git commit --amend --no-edit --no-verify"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
-alias gcnow="git commit --amend --no-edit --date=now" # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
+alias gcnow='GIT_COMMITTER_DATE="$(date)" git commit --amend --no-edit --date="$(date)"' # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
 # can rebase from a certain commit with `gri ####` then `gcnow && gric` until caught up.
+# can also use a manually set variable with a format like: 2022-11-27 21:028:13 -0500
+export NEWDATE=$(date)
+alias gcnewdate='GIT_COMMITTER_DATE="$NEWDATE" git commit --amend --no-edit --date="$NEWDATE"'
+# eg: export NEWDATE="2022-11-27 21:028:13 -0500"; GIT_COMMITTER_DATE=$NEWDATE git commit --amend --no-edit --date=$NEWDATE
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
 
 # git clean
@@ -564,6 +568,7 @@ bind '"\e[B":history-search-forward'
 # nim #
 #######
 
+alias n="nim"
 alias nim-up="choosenim update self && choosenim update stable && choosenim update devel"
 
 # upgrade everything. SLOW!
@@ -731,3 +736,5 @@ enable-brew-bash-completion
 # make sure the brew installed versions take priority
 export PATH="/usr/local/bin:${PATH}"
 
+# make sure the choosenim installed nim takes priority
+export PATH=/Users/Bob/.nimble/bin:$PATH

@@ -254,23 +254,36 @@ alias gc="git commit"
 function git-commit-with-message() {
   git commit -m "$*"
 }
+alias gcm="git-commit-with-message"
+# alias gcm="git commit -m "
+
+function git-commit-no-verify-with-message() {
+  git commit -nm "$*"
+}
+# alias gcmn="git commit -nm "
+alias gcmn="git-commit-no-verify-with-message"
+
 function git-add-all-then-git-commit-with-message() {
   git add .
   git commit -m "$*"
 }
-# alias gcm="git-commit-with-message"
-alias gcm="git commit -m "
-alias gcmn="git commit -nm "
-# alias gacm="git-add-all-then-git-commit-with-message"
-alias gacm="git add --all && git commit -m"
-alias gacmn="git add --all && git commit -nm"
+alias gacm="git-add-all-then-git-commit-with-message"
+# alias gacm="git add --all && git commit -m"
+
+function git-add-all-then-git-commit-no-verify-with-message() {
+  git add .
+  git commit -nm "$*"
+}
+alias gacm="git-add-all-then-git-commit-no-verify-with-message"
+# alias gacmn="git add --all && git commit -nm"
+
 function git-commit-fixup() {
-  git commit --fixup ":/$*"
+  git commit -n --fixup ":/$*"
 }
 alias gcf="git-commit-fixup"
 function git-add-all-then-git-commit-fixup() {
   git add .
-  git commit --fixup ":/$*"
+  git commit -n --fixup ":/$*"
 }
 alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"

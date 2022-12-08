@@ -81,6 +81,7 @@ function brew-install-everything() { # things to install
   brew install bash-completion2 # https://formulae.brew.sh/formula/bash-completion@2#default
   # bash v4+ uses bash-completion@2. If installing this doesn't work, make sure you are using the bash installed by brew (see above)
   # brew install docker # https://docs.docker.com/docker-for-mac/install/
+  brew install entr # https://github.com/eradman/entr/
   brew install fzf # https://github.com/junegunn/fzf
   brew install jq # https://formulae.brew.sh/formula/jq
   brew install ripgrep # https://github.com/BurntSushi/ripgrep

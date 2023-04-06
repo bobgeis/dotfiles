@@ -323,6 +323,7 @@ alias gf="git fetch"
 
 # git log
 alias gl="git log"
+alias glf="git log --follow" # use with a filename `glf package.json` to see just things that touched that file
 alias glo="git log -n 10"
 alias gloo="git log -n 20"
 alias glooo="git log"

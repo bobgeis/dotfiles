@@ -394,6 +394,7 @@ alias glG="git log -G" # like git log -S, but takes a REGEX!
 # git pull
 alias gp="git pull"
 alias gpr="git pull --rebase"
+alias gpra="git pull --rebase --autostash"
 
 # git push
 alias gpu="git push"
@@ -533,9 +534,11 @@ alias ll="ls -alG" # list all files in a column with data
 
 # alias c="for n in {1..50}; do echo; done; clear"
 alias c="reset"
+alias eyd="echo YAY ; echo DONE"
 alias sound="afplay /System/Library/Sounds/Submarine.aiff"
 alias blowsound="afplay /System/Library/Sounds/Blow.aiff"
 alias bb="blowsound && blowsound"
+alias ybb="eyd ; bb"
 alias make-exec="chmod 755 " # follow with filename to make it executable
 alias sudo="sudo " # allow aliases to be sudo'ed
 # alias echo-path="alias path='echo -e ${PATH//:/\\n}'"

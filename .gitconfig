@@ -1,29 +1,51 @@
 
-# Add this to the .gitconfig file in your ~ dir:
-# [include]
-#     path = ~/dotfiles/.gitconfig
-# [core]
-#   excludesfile = ${DOTFILES_PATH}/.gitignore_global
-# [user]
-#   name = <Your Name>
-#   email = <Your Email>
-
+# Add these lines to the ~/.gitconfig:
+  # [include]
+  #     path = ~/dotfiles/.gitconfig
+  # [core]
+  #   excludesfile = ${DOTFILES_PATH}/.gitignore_global
+  # [user]
+  #   name = <Your Name>
+  #   email = <Your Email>
 
 [core]
   editor = code --wait
 [color]
   ui = true
-[pull]
-  rebase = true
 [diff]
   tool = vscode
 [difftool "vscode"]
   cmd = code --wait --diff $LOCAL $REMOTE
+[log]
+  date=short
+[merge]
+  autostash = true
+  conflictStyle = zdiff3 ## need git 2.35+ for zdiff3
+[pull]
+  rebase = true
+  autostash = true
+[push]
+  autoSetupRemote = true
 [rebase]
   autosquash = true
-# [merge]
-  ## need git 2.35+ for zdiff3
-  conflictStyle = zdiff3
+  autostash = true
+  conflictStyle = zdiff3 ## need git 2.35+ for zdiff3
+  updateRefs = true
+
+##############
+# formatting #
+##############
+
+[pretty]
+  # you can define custom named formats here,
+  # then pass them into the log command with:
+  #   git log --pretty=customexample
+  customexample = format:%C(yellow)%h %C(green)%ad %Cred%<(13)%d%Creset%s %Cpurplse%an
+[format]
+  # the default format:
+  pretty = format:%C(yellow)%h %C(green)%ad %Creset%s %C(magenta)[%an] %C(auto)%d
+  # you can access other formats using the pretty arg, eg:
+  #   git log --pretty=fuller --date=iso
 
 # fancy formats
 # see https://git-scm.com/docs/pretty-formats
@@ -79,15 +101,3 @@
   # %ge reflog identity email
   # %gE reflog identity email (respecting .mailmap, see git-shortlog(1) or git-blame(1))
   # %gs reflog subject
-[pretty]
-  # you can define custom named formats here,
-  # then pass them into the log command with:
-  # git log --pretty=customexample
-  customexample = format:%C(yellow)%h %C(green)%ad %Cred%<(13)%d%Creset%s %Cpurplse%an
-[format]
-  # the default format
-  pretty = format:%C(yellow)%h %C(green)%ad %Creset%s %C(magenta)[%an] %C(auto)%d
-  # you can access others using the pretty arg, eg:
-  # git log --pretty=fuller --date=iso
-[log]
-  date=short

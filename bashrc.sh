@@ -4,7 +4,7 @@
 #############
 
 # this is intended to be sourced by the real .bashrc using `source ~/dotfiles/bashrc.sh` or something equivalent
-echo "sourced: ${BASH_SOURCE[0]}"
+echo "sourcing: ~/dotfiles/bashrc.sh"
 
 ## change the dotfiles path to whatever is correct and put it and the line below in ~/.bashrc
 # export DOTFILES_PATH="$HOME/dotfiles"
@@ -91,6 +91,14 @@ function brew-install-everything() { # things to install
 function enable-brew-bash-completion() {
   [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 }
+
+############
+# browsers #
+############
+
+alias chrome="'Google Chrome'"
+alias launch-chrome="'Google Chrome'"
+alias launch-firefox="firefox"
 
 ######
 # cd #
@@ -367,16 +375,16 @@ alias gll="git log --stat --pretty=fuller --date=iso"
 alias glos="git log --stat -n 5"
 alias gloss="git log --stat"
 function glod(){
-    if [ $# -eq 0 ]; then
-        git show --stat -r "HEAD"
-    elif [ $1 -ge 0 ]; then
-        git show --stat -r "HEAD~$1"
-        # for i in `seq 0 $1`; do
-        #     git show --name-status -r "HEAD~$i"
-        # done
-    else
-        echo "Please enter the commit number to show (most recent commit is 0)."
-    fi
+  if [ $# -eq 0 ]; then
+    git show --stat -r "HEAD"
+  elif [ $1 -ge 0 ]; then
+    git show --stat -r "HEAD~$1"
+    # for i in `seq 0 $1`; do
+    #     git show --name-status -r "HEAD~$i"
+    # done
+  else
+    echo "Please enter the commit number to show (most recent commit is 0)."
+  fi
 }
 alias glodd="glod 1"
 alias glop="git log --graph"
@@ -455,19 +463,21 @@ alias gswo="git show --stat --oneline"
 
 # git stash
 alias gsh="git stash"
-alias gshm="git stash push -m"
+alias gshm="git stash push -m" # stash with message
+alias gshs="git stash push --staged" # stash staged
+alias gshsm="git stash push --staged -m" # stash staged with message
 alias gshl="git stash list --oneline"
 alias gshp="git stash pop"
 alias gsha="git stash apply"
 alias gshaf="git checkout stash -- ."
 function git-stash-apply-stash-number(){
-    git stash apply "stash@{$1}"
+  git stash apply "stash@{$1}"
 }
 alias gshas="git-stash-apply-stash-number"
 alias gshaf="git checkout stash -- ."
 alias gshd="git stash drop" # eg: gshd stash@{2}
 function git-stash-drop-stash-number(){
-    git stash drop "stash@{$1}"
+  git stash drop "stash@{$1}"
 }
 alias gshds="git-stash-drop-stash-number"
 # use this if you accidentally drop a stash (reminder):
@@ -581,33 +591,23 @@ alias all-up="nim-up && brew-up"
 ########
 # node #
 ########
+
 # Do not use brew to install nvm
 # https://github.com/nvm-sh/nvm
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
 export NVM_DIR="$HOME/.nvm"
-nvmif() {
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-}
 nvmi() {
-    # loading nvm in every terminal introduced noticeable delay
-    # I was impatient, so now there's a function that loads nvm, called `nvmi`
-    # multiple calls will noop
-    if [ -n "$(which node)" ]; then
-        echo "node version: $(node --version)"
-        return
-    fi
-    echo "initializing nvm"
-    nvmif
-    # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-    if [ -n "$(which node)" ]; then
-        echo "node version: $(node --version)"
-        return
-    fi
+  echo "initializing nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+  echo "node version: $(node --version)"
+
+  # Load Angular CLI autocompletion. This needs to happen right after nvm or there'll be an error
+  [ "$(which ng)" ] && source <(ng completion script)
 }
+
 nvmi
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm # This was slow! Moved to nvmi fxn
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"
@@ -742,3 +742,9 @@ export PATH="/usr/local/bin:${PATH}"
 
 # make sure the choosenim installed nim takes priority
 export PATH=/Users/Bob/.nimble/bin:$PATH
+
+#######
+# end #
+#######
+
+echo "sourced: ~/dotfiles/bashrc.sh"

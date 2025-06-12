@@ -20,7 +20,7 @@ export VISUAL="$EDITOR"
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 function parse_git_branch() {
-git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 # PS1 = Prompt String 1
 export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n$ "
@@ -86,6 +86,11 @@ function brew-install-everything() { # things to install
   brew install jq # https://formulae.brew.sh/formula/jq
   brew install ripgrep # https://github.com/BurntSushi/ripgrep
   brew install tree # https://formulae.brew.sh/formula/tree#default
+
+  brew install docker # https://www.docker.com/
+  brew tap hashicorp/tap # https://www.terraform.io/
+  brew install hashicorp/tap/terraform
+  brew install awscli # https://aws.amazon.com/cli/
 }
 
 function enable-brew-bash-completion() {
@@ -495,6 +500,11 @@ alias gtf="git tag -f" # make or move tag
 alias gtp="git tag -f prebase" # create a 'prebase' tag prior to rebasing/merging
 alias gtpu="git tag -d prebase" # remove the prebase tag
 
+# git update-index
+alias ghide="git update-index --assume-unchanged" # path/to/file # makes git assume the file is unchanged
+alias gunhide="git update-index --no-assume-unchanged" # path/to/file # undoes ghide
+alias ghide-list="git ls-files -v | grep '^[[:lower:]]'" # list files that have been hidden
+
 # git whatchanged
 alias gwc="git whatchanged"
 alias gwco="git whatchanged --oneline"
@@ -592,6 +602,9 @@ alias all-up="nim-up && brew-up"
 # node #
 ########
 
+# Node JS compilation can be cached to increase perf
+export NODE_COMPILE_CACHE=~/.cache/nodejs-compile-cache
+
 # Do not use brew to install nvm
 # https://github.com/nvm-sh/nvm
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
@@ -607,7 +620,7 @@ nvmi() {
   [ "$(which ng)" ] && source <(ng completion script)
 }
 
-nvmi
+# nvmi
 
 alias nvm-def-12="nvm alias default 12" # make nvm default to node version ^12.0.0
 alias rmnm="rm -rf node_modules"

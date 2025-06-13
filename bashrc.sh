@@ -208,6 +208,8 @@ alias gbf="git branch -f" # <branch to move> <target commit> # move a branch to 
 alias gco="git checkout"
 alias gco-="git checkout -" # last branch
 alias gcob="git checkout -b" # new branch
+alias gcoB="git checkout -B" # new branch force
+alias gcobf="git checkout -B" # new branch force
 alias gco.="git checkout ." # revert modified files
 function git-checkout-previous-commit() {
   local prev

@@ -23,7 +23,7 @@ function parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 # PS1 = Prompt String 1
-export PS1="\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n$ "
+export PS1="\n\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n$ "
 # elaboration:
 # \[\033[32m\]          # make it green
 # \t                    # timestamp of render (NOT of execution)
@@ -70,11 +70,6 @@ alias brew-up="brew update && brew upgrade && brew cleanup && brew doctor"
 
 function brew-install-everything() { # things to install
   echo "brew installing everything:"
-  echo "* bash"
-  echo "* bash-completion2"
-  echo "* fzf"
-  echo "* ripgrep"
-  echo "* tree"
   brew install bash # https://formulae.brew.sh/formula/bash#default
   # in macos, the default bash is /bin/bash the homebrew bash is /usr/local/bin/bash
   # to swap to the brew bash, you need to go: System Preferences > Users & Groups > Unlock > Right click your user > Advanced Options > Login shell
@@ -86,6 +81,7 @@ function brew-install-everything() { # things to install
   brew install jq # https://formulae.brew.sh/formula/jq
   brew install ripgrep # https://github.com/BurntSushi/ripgrep
   brew install tree # https://formulae.brew.sh/formula/tree#default
+  brew install uv # https://formulae.brew.sh/formula/uv
 
   brew install docker # https://www.docker.com/
   brew tap hashicorp/tap # https://www.terraform.io/
@@ -303,7 +299,7 @@ function git-add-all-then-git-commit-fixup() {
 alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
 alias gcann="git commit --amend --no-edit --no-verify"
-alias gacan="git add . && git commit --amend --no-edit"
+# alias gacan="git add . && git commit --amend --no-edit" # disabling because dangerous!
 alias gacann="git add . && git commit --amend --no-edit --no-verify"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
 alias gcnow='GIT_COMMITTER_DATE="$(date)" git commit --amend --no-edit --date="$(date)"' # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
@@ -313,6 +309,7 @@ export NEWDATE=$(date)
 alias gcnewdate='GIT_COMMITTER_DATE="$NEWDATE" git commit --amend --no-edit --date="$NEWDATE"'
 # eg: export NEWDATE="2022-11-27 21:028:13 -0500"; GIT_COMMITTER_DATE=$NEWDATE git commit --amend --no-edit --date=$NEWDATE
 # see also: git commit --amend --date="$(date)" where $(date) can be replaced by something from https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-commit.html#_date_formats
+alias gcwip="git commit -m 'feat: wip'"
 
 # git clean
 alias gclen="git clean -dn"
@@ -379,6 +376,9 @@ function git-log-oneline-children() {
 }
 alias gloc="git-log-oneline-children"
 alias gll="git log --stat --pretty=fuller --date=iso"
+alias gll1="git log --stat --pretty=fuller --date=iso -1"
+alias gll2="git log --stat --pretty=fuller --date=iso -2"
+alias gll5="git log --stat --pretty=fuller --date=iso -5"
 alias glos="git log --stat -n 5"
 alias gloss="git log --stat"
 function glod(){
@@ -511,6 +511,17 @@ alias ghide-list="git ls-files -v | grep '^[[:lower:]]'" # list files that have 
 alias gwc="git whatchanged"
 alias gwco="git whatchanged --oneline"
 
+##########
+# iterm2 #
+##########
+
+alias how-to-setup-iterm-key-mappings='echo "prefs->Profiles->Keys->Keybindings->Presets->NaturalTextEditing"'
+# Open iTerm2 Preferences (Cmd + ,)
+# Go to Profiles → Keys → Key Mappings
+# Click the Presets dropdown
+# Select Natural Text Editing
+# This preset automatically configures common key combinations including Alt+arrow keys.
+
 ########
 # java #
 ########
@@ -550,6 +561,44 @@ alias l.="ls -dG .*" # list dotted (hidden) files
 alias lsd="ls -d */" # list directories
 alias la="ls -AG" # list all files
 alias ll="ls -alG" # list all files in a column with data
+
+#########
+# macos #
+#########
+
+alias how-to-change-your-shell='echo '\''chsh -s /bin/bash'\'''
+
+alias how-to-freeze-browser-with-debugger-in-3-seconds='echo '\''setTimeout(() => {debugger}, 3000)'\'''
+
+alias how-to-make-multiline-echo-with-nested-single-quotes='echo '\''
+This is a multiline echo.
+Bash variables will not be expanded, see:
+$HOME
+'\'''
+
+alias how-to-permanently-change-column-width-in-MacOS-finder='echo '\''
+hold option while you click and drag the handle at the bottom of a column
+'\'''
+
+alias how-to-see-shells-available-on-machine='echo '\''cat /etc/shells'\'''
+
+alias how-to-setup-mac-screenshot-nicely='echo '\''
+- Change the datetime format in Settings in Language & Region
+- Change the default filename prefix:
+
+# example old: Screenshot 2025-05-28 at 11.15.00.png
+
+defaults write com.apple.screencapture name "ss"
+defaults write com.apple.screencapture "include-date" 1; killall SystemUIServer
+
+# example new: ss 2025-05-28 at 11.15.00.png
+
+# Note that it adds a space between the prefix and the date,
+# if you have no prefix there will still be a space,
+# you cannot get rid of it!
+'\'''
+
+
 
 ########
 # misc #

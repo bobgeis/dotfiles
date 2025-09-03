@@ -4,6 +4,7 @@
   #     path = ~/dotfiles/.gitconfig
   # [core]
   #   excludesfile = ${DOTFILES_PATH}/.gitignore_global
+  #   excludesfile = ~/dotfiles/.gitignore_global
   # [user]
   #   name = <Your Name>
   #   email = <Your Email>
@@ -31,6 +32,9 @@
   autostash = true
   conflictStyle = zdiff3 ## need git 2.35+ for zdiff3
   updateRefs = true
+[init]
+  defaultBranch = main
+
 
 ##############
 # formatting #

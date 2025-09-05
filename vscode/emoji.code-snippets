@@ -1,0 +1,315 @@
+{
+// commit related
+  "emoji-boom": {
+    "body": [
+      "💥"
+    ],
+    "prefix": "//boom"
+  }, // breaking change
+  "emoji-bug": {
+    "body": [
+      "🐛"
+    ],
+    "prefix": "//bug"
+  }, // bug
+  "emoji-clean": {
+    "body": [
+      "🧹"
+    ],
+    "prefix": "//clean"
+  }, // cleanup
+  "emoji-docs": {
+    "body": [
+      "📝"
+    ],
+    "prefix": "//docs"
+  }, // documentation
+  "emoji-fire": {
+    "body": [
+      "🔥"
+    ],
+    "prefix": "//fire"
+  }, // remove code
+  "emoji-hotfix": {
+    "body": [
+      "🚑"
+    ],
+    "prefix": "//hotfix"
+  }, // hotfix
+  "emoji-move": {
+    "body": [
+      "🚚"
+    ],
+    "prefix": "//move"
+  }, // move files
+  "emoji-package": {
+    "body": [
+      "📦"
+    ],
+    "prefix": "//package"
+  }, // dependency
+  "emoji-recycle": {
+    "body": [
+      "♻️"
+    ],
+    "prefix": "//recycle"
+  }, // refactor
+  "emoji-rocket": {
+    "body": [
+      "🚀"
+    ],
+    "prefix": "//rocket"
+  }, // release
+  "emoji-spark": {
+    "body": [
+      "✨"
+    ],
+    "prefix": "//spark"
+  }, // feature
+  "emoji-tada": {
+    "body": [
+      "🎉"
+    ],
+    "prefix": "//tada"
+  }, // begin
+  "emoji-test": {
+    "body": [
+      "🧪"
+    ],
+    "prefix": "//test"
+  }, // test
+  "emoji-wrench": {
+    "body": [
+      "🔧"
+    ],
+    "prefix": "//wrench"
+  }, // config
+  "emoji-zap": {
+    "body": [
+      "⚡️"
+    ],
+    "prefix": "//zap"
+  }, // perf
+  // status colors
+  "emoji-blue": {
+    "body": [
+      "🔵"
+    ],
+    "prefix": "//blue"
+  },
+  "emoji-green": {
+    "body": [
+      "🟢"
+    ],
+    "prefix": "//green"
+  },
+  "emoji-yellow": {
+    "body": [
+      "🟡"
+    ],
+    "prefix": "//yellow"
+  },
+  "emoji-orange": {
+    "body": [
+      "🟠"
+    ],
+    "prefix": "//orange"
+  },
+  "emoji-red": {
+    "body": [
+      "🔴"
+    ],
+    "prefix": "//red"
+  },
+  "emoji-purple": {
+    "body": [
+      "🟣"
+    ],
+    "prefix": "//purple"
+  },
+  // task
+  "emoji-todo": {
+    "body": [
+      "🔵"
+    ],
+    "prefix": "//todo"
+  },
+  "emoji-spin": {
+    "body": [
+      "🌀"
+    ],
+    "prefix": "//spin"
+  },
+  "emoji-ok": {
+    "body": [
+      "✅"
+    ],
+    "prefix": "//ok"
+  },
+  "emoji-wip": {
+    "body": [
+      "🚧"
+    ],
+    "prefix": "//wip"
+  },
+  "emoji-wait": {
+    "body": [
+      "⏳"
+    ],
+    "prefix": "//wait"
+  },
+  "emoji-x": {
+    "body": [
+      "❌"
+    ],
+    "prefix": "//x"
+  },
+  "emoji-block": {
+    "body": [
+      "⛔"
+    ],
+    "prefix": "//block"
+  },
+  "emoji-due": {
+    "body": [
+      "⏰"
+    ],
+    "prefix": "//due"
+  },
+  "emoji-pause": {
+    "body": [
+      "⏸️"
+    ],
+    "prefix": "//pause"
+  },
+  "emoji-stop": {
+    "body": [
+      "⏹️"
+    ],
+    "prefix": "//stop"
+  },
+  // direction
+  "emoji-right": {
+    "body": [
+      "➡️"
+    ],
+    "prefix": "//right"
+  },
+  "emoji-left": {
+    "body": [
+      "⬅️"
+    ],
+    "prefix": "//left"
+  },
+  "emoji-up": {
+    "body": [
+      "⬆️"
+    ],
+    "prefix": "//up"
+  },
+  "emoji-down": {
+    "body": [
+      "⬇️"
+    ],
+    "prefix": "//down"
+  },
+  // approval
+  "emoji-yes": {
+    "body": [
+      "👍"
+    ],
+    "prefix": "//yes"
+  },
+  "emoji-no": {
+    "body": [
+      "👎"
+    ],
+    "prefix": "//no"
+  },
+  "emoji-heart": {
+    "body": [
+      "❤️"
+    ],
+    "prefix": "//heart"
+  },
+  "emoji-star": {
+    "body": [
+      "⭐"
+    ],
+    "prefix": "//star"
+  },
+  // faces
+  "emoji-angry": {
+    "body": [
+      "😡"
+    ],
+    "prefix": "//angry"
+  },
+  "emoji-evil": {
+    "body": [
+      "😈"
+    ],
+    "prefix": "//evil"
+  },
+  "emoji-sad": {
+    "body": [
+      "☹️"
+    ],
+    "prefix": "//sad"
+  },
+  "emoji-sick": {
+    "body": [
+      "🤢"
+    ],
+    "prefix": "//sick"
+  },
+  "emoji-smile": {
+    "body": [
+      "🙂"
+    ],
+    "prefix": "//smile"
+  },
+  "emoji-think": {
+    "body": [
+      "🤔"
+    ],
+    "prefix": "//think"
+  },
+  // misc
+  "emoji-bang": {
+    "body": [
+      "❗"
+    ],
+    "prefix": "//bang"
+  },
+  "emoji-idea": {
+    "body": [
+      "💡"
+    ],
+    "prefix": "//idea"
+  },
+  "emoji-info": {
+    "body": [
+      "ℹ️"
+    ],
+    "prefix": "//info"
+  },
+  "emoji-question": {
+    "body": [
+      "❓"
+    ],
+    "prefix": "//q"
+  },
+  "emoji-warn": {
+    "body": [
+      "⚠️"
+    ],
+    "prefix": "//warn"
+  },
+  "emoji-begin": {
+    "body": [
+      "🔰"
+    ],
+    "prefix": "//begin"
+  },
+}

@@ -23,7 +23,7 @@ function parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 # PS1 = Prompt String 1
-export PS1="\n\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n$ "
+export PS1="\n\[\033[032m\]\t \[\033[35m\]\u@\h \[\033[33m\]\w \[\033[36m\]\$(parse_git_branch)\[\033[0m\]\n"
 # elaboration:
 # \[\033[32m\]          # make it green
 # \t                    # timestamp of render (NOT of execution)
@@ -181,7 +181,7 @@ alias git-alias="alias | grep git"
 
 # git add
 alias ga="git add"
-alias gaa="git add --all"
+alias gaa="git add --all ; git status -sbu"
 alias gai="git add -i"
 alias gap="git add --patch"
 alias ga-test="git add **test**"
@@ -219,9 +219,9 @@ function git-checkout-child-commit() {
   git checkout "$forward"
 }
 alias gcoc="git-checkout-child-commit"
-alias gcov="git checkout dev"
 alias gcod="git checkout develop"
 alias gcot="git checkout development"
+alias gcov="git checkout dev"
 alias gcom="git checkout master"
 alias gcon="git checkout main"
 function git-checkout-branch-by-search-string() {
@@ -278,14 +278,14 @@ function git-add-all-then-git-commit-with-message() {
   git add .
   git commit -m "$*"
 }
-alias gacm="git-add-all-then-git-commit-with-message"
+# alias gacm="git-add-all-then-git-commit-with-message"
 # alias gacm="git add --all && git commit -m"
 
 function git-add-all-then-git-commit-no-verify-with-message() {
   git add .
   git commit -nm "$*"
 }
-alias gacm="git-add-all-then-git-commit-no-verify-with-message"
+# alias gacmn="git-add-all-then-git-commit-no-verify-with-message"
 # alias gacmn="git add --all && git commit -nm"
 
 function git-commit-fixup() {
@@ -300,7 +300,7 @@ alias gacf="git-add-all-then-git-commit-fixup"
 alias gcan="git commit --amend --no-edit"
 alias gcann="git commit --amend --no-edit --no-verify"
 # alias gacan="git add . && git commit --amend --no-edit" # disabling because dangerous!
-alias gacann="git add . && git commit --amend --no-edit --no-verify"
+# alias gacann="git add . && git commit --amend --no-edit --no-verify"
 alias gcu="git reset --soft HEAD^" # "git commit undo" - undo the last commit, but the files remain intact
 alias gcnow='GIT_COMMITTER_DATE="$(date)" git commit --amend --no-edit --date="$(date)"' # reset to the last commit's date to now. Note that you can change the commit date while rebasing using 'edit'
 # can rebase from a certain commit with `gri ####` then `gcnow && gric` until caught up.
@@ -319,8 +319,8 @@ alias gclenf="git clean -df"
 alias gconfl="git config --list --show-origin"
 alias gconfe="git config -e"
 alias gconfge="git config --global -e" # similar effect as code-git
-alias set-user-name="git config user.name " # follow with "Your Name"
-alias set-user-email="git config user.email " # follow with "you@email.com"
+alias how-to-set-git-user-name="git config user.name " # follow with "Your Name"
+alias how-to-set-git-user-email="git config user.email " # follow with "you@email.com"
 
 # git diff
 alias gd="git diff"
@@ -332,6 +332,11 @@ alias gdwh="git diff --color-words HEAD^"
 
 # git fetch
 alias gf="git fetch"
+alias gfd="git fetch origin develop:develop"
+alias gfv="git fetch origin dev:dev"
+alias gft="git fetch origin development:development"
+alias gfm="git fetch origin master:master"
+alias gfn="git fetch origin main:main"
 
 # git log
 alias gl="git log"
@@ -488,7 +493,7 @@ function git-stash-drop-stash-number(){
 }
 alias gshds="git-stash-drop-stash-number"
 # use this if you accidentally drop a stash (reminder):
-# alias find-stash="git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )"
+alias how-to-find-dropped-git-stash='git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '"'"'/dangling commit/ {print $3}'"'"' )'
 
 # git status
 alias gss="git status"
@@ -510,6 +515,26 @@ alias ghide-list="git ls-files -v | grep '^[[:lower:]]'" # list files that have 
 # git whatchanged
 alias gwc="git whatchanged"
 alias gwco="git whatchanged --oneline"
+
+is_based_on_remote_develop() {
+  local branch="${1:?Usage: is_based_on_remote_develop <branch> [remote] [develop-branch]}"
+  local dev="${2:-develop}"
+  local remote="${3:-origin}"
+
+  git fetch -q "$remote" "$dev" "$branch" || {
+    echo "ERR: fetch failed for $remote/$dev or $remote/$branch" >&2
+    return 2
+  }
+
+  if git merge-base --is-ancestor "$remote/$dev" "$remote/$branch"; then
+    echo "✅ YES: $remote/$branch contains $remote/$dev"
+    return 0
+  else
+    echo "❌ NO: $remote/$branch does NOT contain $remote/$dev"
+    return 1
+  fi
+}
+alias is-based-on=is_based_on_remote_develop
 
 ##########
 # iterm2 #
@@ -784,14 +809,19 @@ alias ytmp3="youtube-dl --restrict-filenames --extract-audio --audio-format mp3"
 # reminders #
 #############
 
-alias make-executable="chmod +x" #filenamehere#
-alias find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (note colon) finds the process using port 9080, so you can kill it # https://en.wikipedia.org/wiki/Lsof#:~:text=lsof%20is%20a%20command%20meaning,the%20processes%20that%20opened%20them.
+alias how-to-list-aliases="alias"
+alias how-to-list-how-to-aliases="alias | grep how-to"
+alias how-to-make-executable="chmod +x" #filenamehere#
+alias how-to-find-process-using-port="lsof -i " #:port# # example: lsof -i :9080 # (note colon) finds the process using port 9080, so you can kill it # https://en.wikipedia.org/wiki/Lsof#:~:text=lsof%20is%20a%20command%20meaning,the%20processes%20that%20opened%20them.
 
 # macos reminders
-alias show-dot-files-in-finder="defaults write com.apple.finder AppleShowAllFiles YES" # the quick keybinding is Cmd-Shift-.
-alias show-path-bar-in-finder="defaults write com.apple.finder ShowPathbar -bool true"
-alias disable-file-extension-change-warning="defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"
-alias paste-without-formatting-by-default="https://havecamerawilltravel.com/set-paste-match-style-default-mac-osx/"
+alias how-to-show-dot-files-in-finder="defaults write com.apple.finder AppleShowAllFiles YES" # the quick keybinding is Cmd-Shift-.
+alias how-to-show-path-bar-in-finder="defaults write com.apple.finder ShowPathbar -bool true"
+alias how-to-disable-file-extension-change-warning="defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false"
+alias how-to-paste-without-formatting-by-default="https://havecamerawilltravel.com/set-paste-match-style-default-mac-osx/"
+
+# use this if you accidentally drop a stash (reminder):
+alias how-to-find-dropped-git-stash='git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '"'"'/dangling commit/ {print $3}'"'"' )'
 
 
 ##########

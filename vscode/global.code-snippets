@@ -43,14 +43,14 @@
     "scope": "javascript,js",
     "prefix": "//def-spy",
     "body": [
-      "const spy = (t,m) => { if (m) console.log(m, ': ',t); else console.log(t); return t; }"
+      "const spy=(t,m)=>{if(m)console.log(m,': ',t);else console.log(t);return t;}"
     ]
   },
   "define-spy-ts": {
     "scope": "typescript,ts",
     "prefix": "//def-spy",
     "body": [
-      "const spy = <T>(t:T,m?:string):T => { if (m) console.log(m, ': ',t); else console.log(t); return t; }"
+      "const spy=<T>(t:T,m?:string):T=>{if(m)console.log(m,': ',t);else console.log(t);return t;}"
     ]
   },
   "spy": {
